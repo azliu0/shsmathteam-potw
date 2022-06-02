@@ -1,0 +1,29 @@
+% potw#5_6/24/2021_solution.pdf
+The key here is to utilize Fermat's Last Theorem.\V
+
+\begin{solution}
+\textbf{Solution}\textbf{:}\V
+
+First, expand and simplify the left hand side of the equation:
+\begin{align*}
+    (3c)^3 &= 9(a-b)^3(a+b)(a^2+ab+b^2)\\
+    &= (a-b)^3(9a^3+18a^2b+18ab^2+9b^3)\\
+    &= (a-b)^3((2a+b)^3 + (2b+a)^3) \\
+    &= \left[(a-b)(2a+b)\right]^3 + \left[(a-b)(2b+a)\right]^3.
+\end{align*}
+
+Note that this equation takes the form $z^3 = x^3+y^3$, which has no non-trivial integer solutions in $x,y,z$ by Fermat's last theorem. Therefore, we only need to compute solutions for each of the trivial cases: \V
+
+\textit{Case 1}: $(x,y,z) = (0,k,k), (k,0,k)$
+\begin{itemize}
+    \item[] If $a=b$, then we get solutions $(\alpha, \alpha,0)$, for any integer $\alpha$. If $(a,b) = (\alpha, -2\alpha)$, then we get that 
+    \[(3c)^3 = (3\alpha)^3(-3\alpha)^3,\]
+    implying $c = -3\alpha^2$, giving us $(\alpha, -2\alpha, -3\alpha^2)$ as another set of solutions. Similarly, for $(a,b) = (-2\alpha, \alpha)$, we get solutions $(-2\alpha, \alpha, 3\alpha^2)$.
+\end{itemize}
+\textit{Case 2}: $(x,y,z) = (k,-k,0)$
+\begin{itemize}
+    \item[] For this case we require $(a-b)(2a+b)+(a-b)(2b+a)=0$, which implies that either $a-b=0$, which is covered in Case 1, or $a=-b$, which gives us $(\alpha, -\alpha, 0)$.
+\end{itemize}
+
+Therefore, our full solution set is the union of $(\alpha, -2\alpha, -3\alpha^2)$, $(-2\alpha, \alpha, 3\alpha^2)$, $(\alpha, \alpha, 0)$, $(\alpha, -\alpha, 0)$ for all integer $\alpha$.
+\end{solution}\V

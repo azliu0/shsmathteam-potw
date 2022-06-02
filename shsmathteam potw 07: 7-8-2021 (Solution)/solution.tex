@@ -1,0 +1,669 @@
+% potw#5_6/24/2021_solution.pdf
+\section*{Exposition 1: Harmonic Quadrilaterals}
+
+This configuration isn't \textit{essential} for understanding our solution, but it does show up enough that it's worth mentioning as a brief prologue.\V
+
+For $\triangle{ABD}$, let the tangents at $B$ and $D$ on $(ABD)$ meet at $X$. Let $AX\cap (ABD) = C$, and $M$ be the midpoint of $BD$. Then, our main result is that \[\angle{XAB} = \angle{MAD}.\tag{1.1}\label{1.1}\] In other words, $AX$ is the isogonal conjugate of the median from $A$, and we call this line the \textit{symmedian} (symmetric to the median).
+
+\begin{center}
+\begin{asy}
+import graph; size(7cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -13.346953306712914, xmax = 16.56794271293273, ymin = -17.688518057397282, ymax = 10.818618149559311;  /* image dimensions */
+pen ttqqqq = rgb(0.2,0,0); pen zzttff = rgb(0.6,0.2,1); pen cqcqcq = rgb(0.7529411764705882,0.7529411764705882,0.7529411764705882); 
+
+draw(arc((-3.8090078766027,9.24615914831551),1.1731331772410056,-105.37030583645021,-81.63779710687267)--(-3.8090078766027,9.24615914831551)--cycle, linewidth(0.7) + red); 
+draw(arc((-3.8090078766027,9.24615914831551),1.1731331772410056,-75.97271221187178,-52.240203482294234)--(-3.8090078766027,9.24615914831551)--cycle, linewidth(0.7) + red); 
+draw((-3.8090078766027,9.24615914831551)--(8,-6)--(-0.9871336085342943,-9.951159090221706)--(-8,-6)--cycle, linewidth(0.7) + zzttff); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-3.8090078766027,9.24615914831551)--(0,-16.666666666666668), linewidth(0.7) + ttqqqq); 
+draw((-8,-6)--(0,-16.666666666666668), linewidth(0.7)); 
+draw((0,-16.666666666666668)--(8,-6), linewidth(0.7)); 
+draw((-3.8090078766027,9.24615914831551)--(0,-6), linewidth(0.7) + ttqqqq); 
+draw((-3.8090078766027,9.24615914831551)--(8,-6)--(-0.9871336085342943,-9.951159090221706)--(-8,-6)--cycle, linewidth(0.7)+zzttff);
+fill((-3.8090078766027,9.24615914831551)--(8,-6)--(-0.9871336085342943,-9.951159090221706)--(-8,-6)--cycle, zzttff+opacity(0.1));
+draw((-8,-6)--(8,-6), linewidth(0.7) + zzttff); 
+ /* dots and labels */
+dot((8,-6),dotstyle); 
+label("$D$", (8.434219350728425,-6.66106619133177), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-8.25,-6.25), SW * labelscalefactor); 
+dot((0,-16.666666666666668),linewidth(4pt) + dotstyle); 
+label("$X$", (-1.9117416279582538,-17.50195146877678), NE * labelscalefactor); 
+dot((-3.8090078766027,9.24615914831551),dotstyle); 
+label("$A$", (-4.4490523748539334,9.645484972318298), NE * labelscalefactor); 
+dot((-0.9871336085342943,-9.951159090221706),linewidth(4pt) + dotstyle); 
+label("$C$", (-1.03353274947552,-9.633003573675667), NE * labelscalefactor); 
+dot((0,-6),linewidth(4pt) + dotstyle); 
+label("$M$", (0.14407823155865132,-5.683455210297593), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+There are many ways to prove this is true, but the most straightforward is to assume that $M$ is the intersection between $BD$ and the isogonal conjugate of $AX$, and then proving that $BM=MD$. Noting that $BX = DX$ and $\angle{XBD} = \angle{XDB} = \angle{A}$, we have that 
+\begin{align*}
+    \frac{BM}{MD} &= \frac{AB\sin{\angle{BAM}}}{AD\sin{\angle{MAD}}} = \frac{AB\sin{\angle{DAX}}}{AD\sin{\angle{BAX}}}\\
+    &= \left(\frac{\sin{\angle{ADB}}}{\sin{\angle{ABD}}}\right) \left(\frac{\sin{\angle{DAX}}}{\sin{\angle{BAX}}}\right)\\
+    &= \left(\frac{\sin{\angle{ABX}}}{\sin{\angle{ADX}}}\right)\left(\frac{\sin{\angle{DAX}}}{\sin{\angle{BAX}}}\right)\\
+    &= \frac{AX/BX}{AX/DX} = 1,
+\end{align*}
+by multiple applications of the law of sines.\V
+
+In this configuration, the quadrilateral $ABCD$ is said to be \textit{harmonic}. The importance of this result in the context of our problem is that harmonic quadrilaterals can be used to prove collinearity — given that a quadrilateral is harmonic, we must have that the intersection of the tangents at two opposite vertices is collinear with the other two vertices (e.g, $X$, $C$, and $A$), a property that we'll use as a key claim during our proof of the main result.
+
+\section*{Exposition 2: Mixtilinear Incircles}
+
+The following configuration \textit{is} essential for understanding our solution, so be sure to note its key claims.\V
+
+Let $\triangle{ABC}$ have incircle $\omega$ and circumcircle $\Omega$, and orient the triangle so that $BC$ is horizontal (as in the diagram). Let $N$ and $M$ be the topmost and bottommost points on $\Omega$, respectively, and let $M_C$ and $M_B$ denote the midpoints of minor arcs $AB$ and $AC$, respectively. Let $I$ denote the center of $\omega$, and $D$, $E$, $F$ be the touchpoints of $\omega$ on $BC$, $CA$, and $AB$, respectively. Now define the \textit{A-mixtilinear incircle} (denoted as $\omega_A$, with center $S$) as the circle internally tangent to $\Omega$, $AB$, and $AC$, and denote its touchpoints as $T$, $B_1$, and $C_1$, respectively. 
+
+\begin{center}
+\begin{asy}
+import graph; size(13cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -17.989450203531074, xmax = 22.63216608853958, ymin = -11.470864444093797, ymax = 11.048647553563763;  /* image dimensions */
+pen zzttff = rgb(0.6,0.2,1); pen ccqqqq = rgb(0.8,0,0); pen ttqqqq = rgb(0.2,0,0); pen xdxdff = rgb(0.49019607843137253,0.49019607843137253,1); pen zzttqq = rgb(0.6,0.2,0); 
+
+draw((-4.887866105051342,8.724033753894481)--(-8,-6)--(8,-6)--cycle, linewidth(0.7) + zzttff); 
+draw(arc((2.775715702652073,-0.031398393878227494),0.9267288887924864,131.19548125877657,155.5977406293883), linewidth(0.7) + red); 
+fill(arc((2.775715702652073,-0.031398393878227494),0.9267288887924864,131.19548125877657,155.5977406293883)--(2.775715702652073,-0.031398393878227494)--cycle, red+opacity(0.1)); 
+draw(arc((-7.29406273864746,-2.660090980931875),0.9267288887924864,53.663119534008835,78.06537890462059), linewidth(0.7) + red); 
+fill(arc((-7.29406273864746,-2.660090980931875),0.9267288887924864,53.663119534008835,78.06537890462059)--(-7.29406273864746,-2.660090980931875)--cycle, red+opacity(0.1)); 
+draw(arc((-3.8305382410438202,-9.237260242295921),0.9267288887924864,54.336254474745466,78.73851384535719), linewidth(0.7) + red); 
+fill(arc((-3.8305382410438202,-9.237260242295921),0.9267288887924864,54.336254474745466,78.73851384535719)--(-3.8305382410438202,-9.237260242295921)--cycle, red + opacity(0.1)); 
+draw(arc((-3.8305382410438202,-9.237260242295921),0.9267288887924864,93.36894392705577,117.77120329766748), linewidth(0.7) + red); 
+fill(arc((-3.8305382410438202,-9.237260242295921),0.9267288887924864,93.36894392705577,117.77120329766748)--(-3.8305382410438202,-9.237260242295921)--cycle, red+opacity(0.1)); 
+draw(arc((-4.887866105051342,8.724033753894481),1.3900933331887297,-101.93462109537943,-86.63105607294425), linewidth(0.7) + zzttqq); 
+fill(arc((-4.887866105051342,8.724033753894481),1.3900933331887297,-101.93462109537943,-86.63105607294425)--(-4.887866105051342,8.724033753894481)--cycle, zzttqq+opacity(0.1)); 
+draw(arc((-4.887866105051342,8.724033753894481),1.3900933331887297,-64.10808376365861,-48.80451874122344), linewidth(0.7) + zzttqq); 
+fill(arc((-4.887866105051342,8.724033753894481),1.3900933331887297,-64.10808376365861,-48.80451874122344)--(-4.887866105051342,8.724033753894481)--cycle, zzttqq+opacity(0.1)); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-4.887866105051342,8.724033753894481)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((-8,-6)--(8,-6), linewidth(0.7) + zzttff); 
+draw((8,-6)--(-4.887866105051342,8.724033753894481), linewidth(0.7) + zzttff); 
+draw(circle((-2.2591735179976937,-1.345744687405049), 4.654255312594951), linewidth(0.7)); 
+draw(circle((-1.6020003712342814,-3.8631892977299342), 5.817819140743686), linewidth(0.7)); 
+draw((-4.887866105051342,8.724033753894481)--(0,-10), linewidth(0.7) + dotted); 
+draw((-3.8305382410438202,-9.237260242295921)--(7.524668553596103,6.586301174295171), linewidth(0.7) + linetype("4 4") + ccqqqq); 
+draw((-3.8305382410438202,-9.237260242295921)--(-9.783842071593797,2.0679541382997813), linewidth(0.7) + linetype("4 4") + ccqqqq); 
+draw((-3.8305382410438202,-9.237260242295921)--(0,10), linewidth(0.7) + linetype("4 4") + ttqqqq); 
+draw((-4.887866105051342,8.724033753894481)--(-3.8305382410438202,-9.237260242295921), linewidth(0.7) + linetype("4 4") + ttqqqq); 
+draw((-7.29406273864746,-2.660090980931875)--(2.775715702652073,-0.031398393878227494), linewidth(0.7) + zzttff); 
+draw((-4.44567246957028,1.2122957580601963)--(-7.29406273864746,-2.660090980931875), linewidth(0.7) + xdxdff + linetype("2 2")); 
+draw((-4.887866105051342,8.724033753894481)--(-1.6020003712342812,1.954629843013752), linewidth(0.7) + xdxdff + linetype("2 2")); 
+draw((-1.6020003712342812,1.954629843013752)--(2.775715702652073,-0.031398393878227494), linewidth(0.7) + xdxdff + linetype("2 2")); 
+fill((-4.887866105051342,8.724033753894481)--(-1.6020003712342812,1.954629843013752)--(2.775715702652073,-0.031398393878227494)--cycle, xdxdff + opacity(0.1));
+fill((-4.887866105051342,8.724033753894481)--(-4.44567246957028,1.2122957580601963)--(-7.29406273864746,-2.660090980931875)--cycle, xdxdff + opacity(0.1));
+fill((-4.887866105051342,8.724033753894481)--(-8,-6)--(8,-6)--cycle, zzttff+opacity(0.1));
+ /* dots and labels */
+dot((-4.887866105051342,8.724033753894481),dotstyle); 
+label("$A$", (-5.293264427074009,9.07162592413978), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-8.56770650080746,-6.4665284446143385), NE * labelscalefactor); 
+dot((8,-6),dotstyle); 
+label("$C$", (8.298759275215792,-6.435637481654589), NE * labelscalefactor); 
+dot((0,-10),linewidth(4pt) + dotstyle); 
+label("$M$", (-0.2271465016750832,-10.729481333059802), NE * labelscalefactor); 
+dot((0,10),linewidth(4pt) + dotstyle); 
+label("$N$", (-0.16536457575558414,10.27637347957002), NE * labelscalefactor); 
+dot((-2.2591735179976937,-1.345744687405049),linewidth(4pt) + dotstyle); 
+label("$I$", (-2.1423862051795552,-1.0915008896178842), NE * labelscalefactor); 
+dot((-2.2591735179976937,-6),linewidth(4pt) + dotstyle); 
+label("$D$", (-2.1423862051795552,-5.756036296540095), NE * labelscalefactor); 
+dot((1.2429993411113884,1.7196880356763162),linewidth(4pt) + dotstyle); 
+label("$E$", (1.3791835722318933,1.96670444339734), NE * labelscalefactor); 
+dot((-6.812823419344934,-0.38326606905625643),linewidth(4pt) + dotstyle); 
+label("$F$", (-7.362958945377229,-0.44279066746313955), NE * labelscalefactor); 
+dot((-3.8305382410438202,-9.237260242295921),linewidth(4pt) + dotstyle); 
+label("$T$", (-4.335644575321773,-9.83364340722706), NE * labelscalefactor); 
+dot((-1.6020003712342814,-3.8631892977299342),linewidth(4pt) + dotstyle); 
+label("$S$", (-1.4936759830248147,-3.6245598523173626), NE * labelscalefactor); 
+dot((-7.29406273864746,-2.660090980931875),linewidth(4pt) + dotstyle); 
+label("$B_{1}$", (-8.07345109345147,-2.8213948153638695), NE * labelscalefactor); 
+dot((2.775715702652073,-0.031398393878227494),linewidth(4pt) + dotstyle); 
+label("$C_{1}$", (3.0781865350181183,-0.16477200082539192), NE * labelscalefactor); 
+dot((7.524668553596103,6.586301174295171),linewidth(4pt) + dotstyle); 
+label("$M_{B}$", (7.650049053061052,6.847476591037799), NE * labelscalefactor); 
+dot((-9.783842071593797,2.0679541382997813),linewidth(4pt) + dotstyle); 
+label("$M_{C}$", (-10.791855833909429,2.2447231100350877), NE * labelscalefactor); 
+dot((-2.2591735179976937,3.3085106251899012),linewidth(4pt) + dotstyle); 
+label("$D'$", (-2.1423862051795552,3.5421435543445767), NE * labelscalefactor); 
+dot((-1.6020003712342812,1.954629843013752),linewidth(4pt) + dotstyle); 
+label("$S''$", (-1.4936759830248147,2.213832147075338), NE * labelscalefactor); 
+dot((-4.44567246957028,1.2122957580601963),linewidth(4pt) + dotstyle); 
+label("$S'$", (-4.335644575321773,1.4724490360413443), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+\begin{theorem}
+\textbf{Claim 2.0:} There exists a homothety $\mathcal{H}_T$ centered at $T$ taking $\omega_A$ to $\Omega$, and homothety $\mathcal{H}_A$ cenetered at $A$ taking $\omega$ to $\omega_A$.
+\end{theorem}\V
+
+This claim follows directly from the definition of the mixtilinear incircle; $\mathcal{H}_T$ exists because of the internal tangency at $T$, and $\mathcal{H}_A$ exists because of the tangencies $E$,$F$, and $C_1$, $B_1$.\V
+
+\begin{theorem}
+\textbf{Claim 2.1:} $T, B_1, M_C$, and $T, C_1, M_B$ are collinear.
+\end{theorem}\V
+
+This follows from Claim 2.0. $\mathcal{H}_T$ maps $B_1$ to the tangent point on $\Omega$ of a line parallel to $AB$, which is $M_C$. The same logic applies for $C_1$ and $M_B$.\V
+
+\begin{theorem}
+\textbf{Claim 2.2:} $B_1, I, C_1$ are collinear.
+\end{theorem}\V
+
+Note that this implies that $B_1I = IC_1$, a fact that we'll use to prove the next claim. The quickest proof for this fact involves Pascal's theorem, which is not elementary, so for now we take it for granted (it's possible to prove using only angle-chasing, but this isn't super relevant for our main proof so we'll omit it here for space).\V
+
+\begin{theorem}
+\textbf{Claim 2.3:} $T, I, N$ are collinear. Moreover, if we let $S'' = TN\cap \omega_A$, and $D'$ be the antipode of $D$ in $\omega$, then $A, D',$ and $S''$ are also collinear.
+\end{theorem}\V
+
+Let $S' = AT\cap \omega_A$. Then notice that quadrilateral $TC_1S'B_1$ is quadrilateral is harmonic! Therefore, because $TI$ is a median, Eqn~\ref{1.1} gives us that $\angle{M_CTA} = \angle{M_BTI} = C/2$.\V
+
+Now let $N' = TI\cap \Omega$. We now know that $\wideparen{N'M_B} = C$, and moreover $\wideparen{M_BC} = B$ (by definition). Therefore, $\wideparen{N'C} = B+C$, which is precisely half of $\wideparen{BAC}$, so $N' = N$, as desired.\V
+
+The second half of our claim then follows from Claim 2.0; $\mathcal{H}_T$ gives us that $S''$ is the top of $\omega$, so then by $\mathcal{H}_S$ we have that $A$, $D'$, and $S''$ are collinear.\V
+
+\begin{theorem}
+\textbf{Claim 2.4:} $AS'$ and $AS''$ are isogonal conjugates in $\angle{BAC}$.
+\end{theorem}\V
+
+The congruency between $\angle{B_1TS'}$ and $\angle{C_1TS''}$ gives us that $B_1S' = C_1S''$, and that $\angle{S''C_1A} = \angle{S'B_1A} = C/2$. We also know that $AC_1=AB_1$, so $\triangle{C_1AS''}\cong \triangle{B_1AS'}$, which implies the result.
+
+\V\rule{\textwidth}{0.3pt} \vspace{0.3cm}
+
+Equipped with the above two configurations, we are now ready to tackle our main result.
+
+\newpage
+\section*{Motivating the Solution}
+
+As with any geo configuration, we'll start with a diagram (with $BC$ oriented horizontal, as usual):
+
+\begin{center}
+\begin{asy}
+import graph; size(10cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -14.209966989024615, xmax = 19.155547346923118, ymin = -11.112883324147136, ymax = 10.899297626899079;  /* image dimensions */
+pen zzttff = rgb(0.6,0.2,1); pen qqwuqq = rgb(0,0.6,0.8); 
+
+draw((-5.047415203247915,8.632705240306876)--(-8,-6)--(8,-6)--cycle, linewidth(0.7) + zzttff); 
+fill((-5.047415203247915,8.632705240306876)--(-8,-6)--(8,-6)--cycle, zzttff+opacity(0.1)); 
+draw((-4.9636761813236925,8.32357978702108)--(-4.654550728037896,8.407318808945302)--(-4.738289749962119,8.716444262231098)--(-5.047415203247915,8.632705240306876)--cycle, linewidth(0.7) + qqwuqq); 
+fill((-4.9636761813236925,8.32357978702108)--(-4.654550728037896,8.407318808945302)--(-4.738289749962119,8.716444262231098)--(-5.047415203247915,8.632705240306876)--cycle, qqwuqq+opacity(0.1)); 
+draw((-2.571259665189987,0.716778851219516)--(-2.65499868711421,1.0259043045053127)--(-2.9641241404000063,0.9421652825810902)--(-2.880385118475784,0.6330398292952936)--cycle, linewidth(0.7) + qqwuqq); 
+draw((-2.571259665189987,0.716778851219516)--(-2.65499868711421,1.0259043045053127)--(-2.9641241404000063,0.9421652825810902)--(-2.880385118475784,0.6330398292952936)--cycle, qqwuqq + opacity(0.1)); 
+draw((-3.740524558891232,0.4000365786951362)--(-3.8242635808154546,0.7091620319809329)--(-4.133389034101251,0.6254230100567104)--(-4.049650012177029,0.31629755677091376)--cycle, linewidth(0.7) + qqwuqq); 
+draw((-3.740524558891232,0.4000365786951362)--(-3.8242635808154546,0.7091620319809329)--(-4.133389034101251,0.6254230100567104)--(-4.049650012177029,0.31629755677091376)--cycle, qqwuqq + opacity(0.1)); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-5.047415203247915,8.632705240306876)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((-8,-6)--(8,-6), linewidth(0.7) + zzttff); 
+draw((8,-6)--(-5.047415203247915,8.632705240306876), linewidth(0.7) + zzttff); 
+draw(circle((-2.3386275972827506,-1.3668765234576017), 4.633123476542398), linewidth(0.7)); 
+draw((-5.047415203247915,8.632705240306876)--(0,-10), linewidth(0.7)); 
+draw((-6.880217823981575,-0.4504752130907717)--(1.1194475870300076,1.716554871681359), linewidth(0.7)); 
+draw((-4.677157384685243,2.632762408036036)--(-2.33862759728275,-6), linewidth(0.7)); 
+draw((-5.047415203247915,8.632705240306876)--(-3.9477080533627835,-9.187796314972084), linewidth(0.7)); 
+draw(circle((-6.315526315260268,-3.4521556933426343), 3.054334985810659), linewidth(0.7) + dotted); 
+draw(circle((1.957932636678356,-4.461638733992216), 6.234832267805578), linewidth(0.7) + dotted); 
+draw((-5.047415203247915,8.632705240306876)--(0,10), linewidth(0.7)); 
+draw((-2.3386275972827515,9.366488959223952)--(-2.33862759728275,-6), linewidth(0.7)); 
+draw((0,-10)--(0,10), linewidth(0.7)); 
+ /* dots and labels */
+dot((-5.047415203247915,8.632705240306876),dotstyle); 
+label("$A$", (-5.332626523170647,8.936620313019786), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-8.854080438966348,-6.7232379132294085), NE * labelscalefactor); 
+dot((8,-6),dotstyle); 
+label("$C$", (8.345724602788017,-6.372262735238693), NE * labelscalefactor); 
+dot((-2.3386275972827506,-1.3668765234576017),linewidth(4pt) + dotstyle); 
+label("$I$", (-2.041367642973088,-1.631642146330249), NE * labelscalefactor); 
+dot((0,-10),linewidth(4pt) + dotstyle); 
+label("$M$", (0.25345506248576105,-9.81449679342699), NE * labelscalefactor); 
+dot((0,10),linewidth(4pt) + dotstyle); 
+label("$N$", (0.13267492009319007,10.235006843739933), NE * labelscalefactor); 
+dot((-2.33862759728275,-6),linewidth(4pt) + dotstyle); 
+label("$D$", (-2.7244882125433716,-6.934603162416409), NE * labelscalefactor); 
+dot((1.1194475870300076,1.716554871681359),linewidth(4pt) + dotstyle); 
+label("$E$", (1.2498912372244717,1.961567089848763), NE * labelscalefactor); 
+dot((-6.880217823981575,-0.4504752130907717),linewidth(4pt) + dotstyle); 
+label("$F$", (-7.525498872648068,-0.3030605800119589), NE * labelscalefactor); 
+dot((-4.677157384685243,2.632762408036036),linewidth(4pt) + dotstyle); 
+label("$R$", (-4.647555597618936,3.0183933357837662), NE * labelscalefactor); 
+dot((-4.16764948333981,-5.623696003916291),linewidth(4pt) + dotstyle); 
+label("$P$", (-4.034239992450509,-5.375826560499975), NE * labelscalefactor); 
+dot((-3.9477080533627835,-9.187796314972084),linewidth(4pt) + dotstyle); 
+label("$T$", (-4.626775455226364,-9.954106722230704), NE * labelscalefactor); 
+dot((-3.7085187788482368,-1.860780844151572),linewidth(4pt) + dotstyle); 
+label("$Q$", (-4.113459850057938,-2.9280783210689664), NE * labelscalefactor); 
+dot((-2.3386275972827515,3.2662469530847966),linewidth(4pt) + dotstyle); 
+label("$D'$", (-2.222537856561944,3.5015139053540536), NE * labelscalefactor); 
+dot((-2.3386275972827515,9.366488959223952),linewidth(4pt) + dotstyle); 
+label("$Z$", (-2.622537856561944,9.800911096178931), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+Let $\Omega$ denote the circumcircle of $\triangle{ABC}$, and $M$, $N$ be the bottommost and topmost points on $\Omega$, respectively. Let $D'$ be the antipode of $D$ in $\omega$. \V
+
+As per usual, there's a lot going on in the above diagram. Let's break down a couple preliminary observations: 
+\begin{itemize}
+    \item We know that $A,I,M$ are collinear. Therefore, we know that the line through $A$ perpendicular to $AI$ goes through $N$, since $MN$ is a a diameter in $\Omega$.
+    \item By virtue of the above observation, now we can define $Z = DI\cap AN$, so that the problem now boils down to proving $P,Q,Z$ collinear. This feels more manageable than the original condition given to us.
+    \item Let $T = AR\cap \Omega$. It looks \textit{suspiciously} like the point $T$ that we defined in Exposition 2. Let's keep this in mind as we continue to step through our solution.
+    \item $Q$ is suspiciously untouched. We'll probably need to do something about that later...
+\end{itemize}
+
+Okay, so now we've reduced the problem to proving a collinearity. There are lots of ways to prove collinearity, but the one that particularly sticks out in this scenario is Menelaus's theorem. We've got lots of lengths (you may already be able to spot parallel lines and similar triangles), and it seems like an easy way to get around the fact that we don't know much about point $Q$ for now. The benefit of an approach like this one is that we \textit{know} that $Z, Q, P$ are collinear; our task is just to prove it. Therefore, with a more "computational" approach like Menelaus, we \textit{know} that we should be able to dig out a solution with enough chasing of lengths (leap of faith).\V
+
+With this in the back of our minds, let's try to address our third and fourth observations, since they seem like the keys to unlocking the connection between our problem and Expositions 1 and 2. Per Claim 2.4, in order to prove that $T$ is indeed the $A$-mixtilinear touchpoint, we just need to prove that $\angle{RAI} = \angle{D'AI}$. But we know that $\omega$ is symmetrical with respect to $AI$ (it's an angle bisector); therefore, this is equivalent to proving that $\angle{RIA} = \angle{D'IA}$. Now this feels more manageable. After some quick angle chasing, we find that 
+\begin{align*}
+    \angle{D'IA} &= \angle{RDI} = \frac{1}{2}\angle{RID'}.
+\end{align*}
+But $\angle{RID'} = \angle{D'IA} + \angle{RIA}$, so $\angle{D'IA} = \angle{RIA}$ and we're done. \V
+
+Now, what should we do about $Q$? Here, we're gonna need to take another leap of faith. There's no easy way to motivate this without the benefit of hindsight. But, after a bit of soul searching and playing around with lines and circles that \textit{look} promising, we'll eventually stumble upon quadrilateral $BQIC$ (for those familiar with \href{https://web.evanchen.cc/handouts/Fact5/Fact5.pdf}{Fact 5}, this isn't entirely unmotivated). It looks concyclic, so let's try to prove it.\V
+
+It turns out that the most natural thing to try works immediately; 
+\begin{align*}
+    \angle{BQC} &= \angle{BQP} + \angle{CQP} \\
+    &= \angle{BFP} + \angle{CEP}\\
+    &= (\wideparen{FP}+\wideparen{PE})/2\\
+    &= (360^{\circ} - \wideparen{FRE})/2 \\
+    &= 90^{\circ} + A/2\\
+    &= \angle{BIC},
+\end{align*}
+where the second to last equality follows from the fact that $\wideparen{FRE} = 180^{\circ}-A$, which can be seen by looking at quadrilateral $AFIE$. \newpage
+
+Okay, now we've made meaningful progress. Let's redraw our diagram:
+\begin{center}
+\begin{asy}
+import graph; size(15cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -17.184800172887673, xmax = 31.956410909054274, ymin = -19.76846475111653, ymax = 11.67301600447902;  /* image dimensions */
+pen zzttff = rgb(0.6,0.2,1); pen qqzzcc = rgb(0,0.6,0.8); pen zzttqq = rgb(0.6,0.2,0); pen ccqqqq = rgb(0.8,0,0); pen fuqqzz = rgb(0.9568627450980393,0,0.6); 
+
+draw((-5.376661168975351,8.431578421270396)--(-8,-6)--(8,-6)--cycle, linewidth(0.7) + zzttff); 
+draw((-7.017188693876353,-0.5933334002094313)--(-4.970686187216913,2.453464356797051)--(0.8589517732679097,1.7042093084616998)--cycle, linewidth(0.7) + ccqqqq); 
+draw((-8,-6)--(-2.50473278313644,-1.4135971626599317)--(8,-6)--cycle, linewidth(0.7) + ccqqqq); 
+draw((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998)--cycle, linewidth(0.7) + fuqqzz); 
+draw((-8,-6)--(-5.87001374511271,-16.74855085423441)--(8,-6)--cycle, linewidth(0.7) + fuqqzz); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-5.376661168975351,8.431578421270396)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((-8,-6)--(8,-6), linewidth(0.7) + zzttff); 
+draw((8,-6)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + zzttff); 
+fill((-5.376661168975351,8.431578421270396)--(-8,-6)--(8,-6)--cycle, zzttff + opacity(0.1));
+draw(circle((-2.50473278313644,-1.4135971626599317), 4.586402837340067), linewidth(0.7)); 
+draw((-5.376661168975351,8.431578421270396)--(0,-10), linewidth(0.7) + linetype("4 4")); 
+draw((-4.970686187216913,2.453464356797051)--(-2.5047327831364408,-6), linewidth(0.7) + linetype("4 4")); 
+draw((-5.376661168975351,8.431578421270396)--(-4.187373264124576,-9.081074008447168), linewidth(0.7) + linetype("4 4")); 
+draw(circle((-6.484540783236255,-3.48281678017835), 2.938167456055878), linewidth(0.7) + dotted); 
+draw(circle((1.8291435325096685,-4.5581490139734235), 6.337065867439999), linewidth(0.7) + dotted); 
+draw((-5.376661168975351,8.431578421270396)--(0,10), linewidth(0.7) + linetype("4 4")); 
+draw((-2.5047327831364377,9.269346380112081)--(-2.5047327831364408,-6), linewidth(0.7) + linetype("4 4")); 
+draw((0,-10)--(0,10), linewidth(0.7) + linetype("4 4")); 
+draw(circle((0,-10), 8.944271909999161), linewidth(0.7) + linetype("2 2")); 
+draw((-2.5047327831364377,9.269346380112081)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + zzttqq); 
+draw((0,10)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + zzttqq); 
+draw((0,-10)--(-5.87001374511271,-16.74855085423441), linewidth(0.7)); 
+draw((-2.50473278313644,-1.4135971626599317)--(0,-10), linewidth(0.7)); 
+draw((-7.017188693876353,-0.5933334002094313)--(-4.970686187216913,2.453464356797051), linewidth(0.7) + ccqqqq); 
+draw((-4.970686187216913,2.453464356797051)--(0.8589517732679097,1.7042093084616998), linewidth(0.7) + ccqqqq); 
+draw((0.8589517732679097,1.7042093084616998)--(-7.017188693876353,-0.5933334002094313), linewidth(0.7) + ccqqqq); 
+fill((-7.017188693876353,-0.5933334002094313)--(-4.970686187216913,2.453464356797051)--(0.8589517732679097,1.7042093084616998)--cycle, ccqqqq+opacity(0.05));
+draw((-8,-6)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + ccqqqq); 
+draw((-2.50473278313644,-1.4135971626599317)--(8,-6), linewidth(0.7) + ccqqqq); 
+draw((8,-6)--(-8,-6), linewidth(0.7) + ccqqqq); 
+fill((-8,-6)--(-2.50473278313644,-1.4135971626599317)--(8,-6)--cycle, ccqqqq+opacity(0.05));
+draw((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535), linewidth(0.7) + fuqqzz); 
+draw((-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998), linewidth(0.7) + fuqqzz); 
+draw((0.8589517732679097,1.7042093084616998)--(-7.017188693876353,-0.5933334002094313), linewidth(0.7) + fuqqzz); 
+fill((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998)--cycle, fuqqzz+opacity(0.05));
+draw((-8,-6)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + fuqqzz); 
+draw((-5.87001374511271,-16.74855085423441)--(8,-6), linewidth(0.7) + fuqqzz); 
+draw((8,-6)--(-8,-6), linewidth(0.7) + fuqqzz); 
+fill((-8,-6)--(-5.87001374511271,-16.74855085423441)--(8,-6)--cycle, fuqqzz+opacity(0.05));
+draw((0,10)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((0,10)--(8,-6), linewidth(0.7) + zzttff); 
+ /* dots and labels */
+dot((-5.376661168975351,8.431578421270396),dotstyle); 
+label("$A$", (-6.022407429387739,8.871299897544764), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-9.046481957507243,-6.382487795763967), NE * labelscalefactor); 
+dot((8,-6),dotstyle); 
+label("$C$", (8.519833316128112,-6.338016111526915), NE * labelscalefactor); 
+dot((-2.50473278313644,-1.4135971626599317),linewidth(4pt) + dotstyle); 
+label("$I$", (-2.108899216527204,-1.1348290557918672), NE * labelscalefactor); 
+dot((0,-10),linewidth(4pt) + dotstyle); 
+label("$M$", (0.3370434165106307,-9.717864113542845), NE * labelscalefactor); 
+dot((0,10),linewidth(4pt) + dotstyle); 
+label("$N$", (-0.10767342585988467,10.472280530078626), NE * labelscalefactor); 
+dot((-2.5047327831364408,-6),linewidth(4pt) + dotstyle); 
+label("$D$", (-2.7759744800829766,-7.049563059319743), NE * labelscalefactor); 
+dot((0.8589517732679097,1.7042093084616998),linewidth(4pt) + dotstyle); 
+label("$E$", (0.9485903643034553,1.867132209275855), NE * labelscalefactor); 
+dot((-7.017188693876353,-0.5933334002094313),linewidth(4pt) + dotstyle); 
+label("$F$", (-7.667859746158646,-0.3788104237619884), NE * labelscalefactor); 
+dot((-4.970686187216913,2.453464356797051),linewidth(4pt) + dotstyle); 
+label("$R$", (-4.977200270750296,2.845509262490992), NE * labelscalefactor); 
+dot((-4.425230845094731,-5.5785435225036535),linewidth(4pt) + dotstyle); 
+label("$P$", (-4.243540059905677,-5.626224005600623), NE * labelscalefactor); 
+dot((-4.187373264124576,-9.081074008447168),linewidth(4pt) + dotstyle); 
+label("$T$", (-3.709879849061059,-9.050788849987068), NE * labelscalefactor); 
+dot((-3.959779848265595,-1.9800159879667052),linewidth(4pt) + dotstyle); 
+label("$Q$", (-4.688011744142729,-1.891583162222142), NE * labelscalefactor); 
+dot((-2.504732783136439,3.1728056746801356),linewidth(4pt) + dotstyle); 
+label("$D'$", (-2.3312576377124614,3.5346977890985607), NE * labelscalefactor); 
+dot((-2.5047327831364377,9.269346380112081),linewidth(4pt) + dotstyle); 
+label("$Z$", (-2.9093895327941315,9.783092003471057), NE * labelscalefactor); 
+dot((-5.87001374511271,-16.74855085423441),linewidth(4pt) + dotstyle); 
+label("$K$", (-6.733954377180564,-17.366993802315736), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+...yikes. As with our first diagram, let's break it down. Let $\Gamma$ be the circumcircle of $BQIC$.
+\begin{itemize}
+    \item We know that our goal is to somehow use Menelaus to prove $P,Q,Z$ collinear; so, the natural thing to do is to try to get more information about the line $P,Q,Z$ (of course, we don't know it's a line yet, but we can pretend). This motivates us to extend $PQ$ and define $K = PQ\cap \Gamma$.
+    \item We still haven't used the configuration from Exposition 1. We see that $PFRE$ is harmonic, with a tangent at $A$. From Claim 2.3, we know that $N,I,T$ are collinear. We also know that $NB$ and $NC$ are tangents to $\Gamma$. Maybe $KBIC$ is also harmonic...
+\end{itemize}
+
+Of course, making these observations would be pretty hard during a live solve. One of two things would have to happen: 
+\begin{enumerate}
+    \item [(1)] Backsolve the Menelaus and figure that they \textit{need} to be true in order for it to work. Of course, since again we know that our Menelaus has to work by virtue of it being given in the problem, the angle chasing thereafter would be easy. 
+    \item [(2)] Get lucky, take a leap of faith, and notice some patterns. This is the more likely option, sometimes getting lucky is all you need to solve hard problems...
+\end{enumerate}
+
+Motivations aside, now let's try to prove our second observation. There are a couple ways to prove a quadrilateral harmonic that we didn't talk about during Exposition 1. Mainly, this is because none of them work (easily) for our problem. It turns out that, because we already have a lot of angles, it's fairly straightforward to just prove that $KBIC\sim PFRE$, which implies what we want because the property of being harmonic is invariant to stretching or shrinking.\V
+
+First, we'll prove $\triangle{FRE}\sim \triangle{BIC}$. Note that $\angle{IBC} = B/2$, and that $\angle{RDF} = 90^{\circ}-B/2$ (since $\wideparen{FD} = 180-B$). Luckily, we're given that $RD\perp FE$, so $\angle{IBC} = \angle{RFE}$. A similar argument holds to prove $\angle{ICB} = \angle{REF}$, so the top halves of our quadrilaterals are similar.\V
+
+Now, we'll prove $\triangle{FPE}\sim \triangle{BKC}$. We're again just going to chase known angles: 
+\[\angle{KBC} = \angle{KQC} = \angle{PQC} = \angle{PEC} = \angle{PFE}.\]
+The same argument holds for proving $\angle{KCB} = \angle{PEF}$, so we're done.\V
+
+What does all of this tell us? Mainly, now we know that $N,I,T,K$ are all collinear. Also, because $M$ is the center of $\Gamma$ (see \href{https://web.evanchen.cc/handouts/Fact5/Fact5.pdf}{Fact 5}), along with the fact that $\angle{MTN} = 90^{\circ}$, we know $MI = MK$ and $IT = TK$.\V
+
+We're almost ready to put everything together now. We have a lot of lengths and useful properties about lots of points in our diagram. Going back to our first observation, our final obstacle is to answer the question: which triangle should we use for our Menelaus? This is another leap of faith, but given what we've just proven about the line $NT$, its natural to look at $\triangle{ANT}$. The lines $QP$ and $NIT$ also converge nicely at point $K$, giving us confidence that this'll work.\V
+
+\begin{center}
+\begin{asy}
+import graph; size(15cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -19.562676099674952, xmax = 32.844534109261836, ymin = -20.33559805451673, ymax = 12.152129541068668;  /* image dimensions */
+pen ffwwzz = rgb(1,0.4,0.6); pen ccqqqq = rgb(0.8,0,0); pen ffzztt = rgb(1,0.6,0.2); 
+
+draw((-5.376661168975351,8.431578421270396)--(-8,-6)--(8,-6)--cycle, linewidth(0.7)); 
+draw((-5.376661168975351,8.431578421270396)--(-4.187373264124576,-9.081074008447168)--(0,10)--cycle, linewidth(0.7) + ccqqqq); 
+fill((-5.376661168975351,8.431578421270396)--(-4.187373264124576,-9.081074008447168)--(0,10)--cycle, ccqqqq+opacity(0.1)); 
+draw((-5.376661168975351,8.431578421270396)--(-7.427320611872849,-2.849561557866305)--(-2.50473278313644,-1.4135971626599317)--cycle, linewidth(0.7) + ffzztt); 
+draw((-7.427320611872849,-2.849561557866305)--(-1.7867506866767124,-3.874891058642511)--(-2.50473278313644,-1.4135971626599317)--cycle, linewidth(0.7) + ffzztt); 
+draw((-5.376661168975351,8.431578421270396)--(0,-10)--(0,10)--cycle, linewidth(0.7) + ffwwzz); 
+fill((-5.376661168975351,8.431578421270396)--(0,-10)--(0,10)--cycle, ffwwzz+opacity(0.1)); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-5.376661168975351,8.431578421270396)--(-8,-6), linewidth(0.7)); 
+draw((-8,-6)--(8,-6), linewidth(0.7)); 
+draw((8,-6)--(-5.376661168975351,8.431578421270396), linewidth(0.7)); 
+draw(circle((-2.50473278313644,-1.4135971626599317), 4.586402837340067), linewidth(0.7) + blue); 
+draw((-5.376661168975351,8.431578421270396)--(0,-10), linewidth(0.7)); 
+draw(circle((-6.484540783236255,-3.48281678017835), 2.938167456055878), linewidth(0.7) + dotted); 
+draw(circle((1.8291435325096685,-4.5581490139734235), 6.337065867439999), linewidth(0.7) + dotted); 
+draw((-2.5047327831364377,9.269346380112081)--(-2.5047327831364408,-6), linewidth(0.7)); 
+draw((0,-10)--(0,10), linewidth(0.7) + ffwwzz); 
+draw(circle((0,-10), 8.944271909999161), linewidth(0.7) + linetype("2 2")); 
+draw((-2.5047327831364377,9.269346380112081)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ccqqqq); 
+draw((0,10)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ccqqqq); 
+draw(circle((-1.7867506866767124,-3.874891058642511), 5.733003546675088), linewidth(0.7) + blue); 
+draw((-5.376661168975351,8.431578421270396)--(-4.187373264124576,-9.081074008447168), linewidth(0.7) + ccqqqq); 
+draw((-4.187373264124576,-9.081074008447168)--(0,10), linewidth(0.7) + ccqqqq); 
+draw((0,10)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + ccqqqq); 
+draw((-2.50473278313644,-1.4135971626599317)--(-7.017188693876353,-0.5933334002094313), linewidth(0.7) + ffzztt); 
+draw((-5.376661168975351,8.431578421270396)--(-7.427320611872849,-2.849561557866305), linewidth(0.7) + ffzztt); 
+draw((-7.427320611872849,-2.849561557866305)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + ffzztt); 
+draw((-2.50473278313644,-1.4135971626599317)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + ffzztt); 
+draw((-7.427320611872849,-2.849561557866305)--(-1.7867506866767124,-3.874891058642511), linewidth(0.7) + ffzztt); 
+draw((-1.7867506866767124,-3.874891058642511)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + ffzztt); 
+draw((-2.50473278313644,-1.4135971626599317)--(-7.427320611872849,-2.849561557866305), linewidth(0.7) + ffzztt); 
+fill((-5.376661168975351,8.431578421270396)--(-1.7867506866767124,-3.874891058642511)--(-7.427320611872849,-2.849561557866305)--cycle, ffzztt+opacity(0.1));
+draw((-5.376661168975351,8.431578421270396)--(0,-10), linewidth(0.7) + ffwwzz); 
+draw((0,-10)--(0,10), linewidth(0.7) + ffwwzz); 
+draw((0,10)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + ffwwzz); 
+draw((-4.425230845094731,-5.5785435225036535)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + ffzztt);
+draw((-4.187373264124576,-9.081074008447168)--(-1.7867506866767124,-3.874891058642511), linewidth(0.7) + ffzztt);
+
+ /* dots and labels */
+dot((-5.376661168975351,8.431578421270396),dotstyle); 
+label("$A$", (-6.093311665884863,8.927070451287927), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-9.128661397443192,-6.439387564726188), NE * labelscalefactor); 
+dot((8,-6),dotstyle); 
+label("$C$", (8.5617362567952,-6.391960225170589), NE * labelscalefactor); 
+dot((-2.50473278313644,-1.4135971626599317),linewidth(4pt) + dotstyle); 
+label("$I$", (-2.0619878036589556,-1.1275255344990862), NE * labelscalefactor); 
+dot((0,-10),linewidth(4pt) + dotstyle); 
+label("$M$", (0.35680651367658867,-9.811873994062527), NE * labelscalefactor); 
+dot((0,10),linewidth(4pt) + dotstyle); 
+label("$N$", (-0.1174668818794004,10.539599996178298), NE * labelscalefactor); 
+dot((-2.5047327831364408,-6),linewidth(4pt) + dotstyle); 
+label("$D$", (-2.773397896992939,-7.150797658060174), NE * labelscalefactor); 
+dot((0.8589517732679097,1.7042093084616998),linewidth(4pt) + dotstyle); 
+label("$E$", (1.0682166070105723,2.097533555281654), NE * labelscalefactor); 
+dot((-7.017188693876353,-0.5933334002094313),linewidth(4pt) + dotstyle); 
+label("$F$", (-7.705841210775225,-0.3686881016095003), NE * labelscalefactor); 
+dot((-4.970686187216913,2.453464356797051),linewidth(4pt) + dotstyle); 
+label("$R$", (-4.965346158328093,2.8935076859492354), NE * labelscalefactor); 
+dot((-4.425230845094731,-5.5785435225036535),linewidth(4pt) + dotstyle); 
+label("$P$", (-4.243645423216505,-5.206276736280611), NE * labelscalefactor); 
+dot((-4.187373264124576,-9.081074008447168),linewidth(4pt) + dotstyle); 
+label("$T$", (-3.6745173485493186,-9.04789124028414), NE * labelscalefactor); 
+dot((-3.959779848265595,-1.9800159879667052),linewidth(4pt) + dotstyle); 
+label("$Q$", (-4.091072762772104,-3.1669011353898484), NE * labelscalefactor); 
+dot((-2.504732783136439,3.1728056746801356),linewidth(4pt) + dotstyle); 
+label("$D'$", (-2.29912450143695,3.5677810815052267), NE * labelscalefactor); 
+dot((-2.5047327831364377,9.269346380112081),linewidth(4pt) + dotstyle); 
+label("$Z$", (-2.915679915659736,10.017899261066708), NE * labelscalefactor); 
+dot((-5.87001374511271,-16.74855085423441),linewidth(4pt) + dotstyle); 
+label("$K$", (-6.757294419663247,-17.395103002069586), NE * labelscalefactor); 
+dot((-1.7867506866767124,-3.874891058642511),linewidth(4pt) + dotstyle); 
+label("$S$", (-1.3505777103249719,-4.068020586946232), NE * labelscalefactor); 
+dot((-7.427320611872849,-2.849561557866305),linewidth(4pt) + dotstyle); 
+label("$B_{1}$", (-8.606960662331604,-2.7400550793894562), NE * labelscalefactor); 
+dot((2.417855113505958,0.022366917327182014),linewidth(4pt) + dotstyle); 
+label("$C_{1}$", (2.7756008310121327,0.10558529394649095), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+Let's set up our Menelaus with $\triangle{ANT}$, with respect to the intersecting line $ZPK$:
+\begin{equation}\label{men}
+\frac{NZ}{ZA}\cdot \frac{AP}{PT}\cdot \frac{TK}{KN} = 1.\tag{1}
+\end{equation}
+If our expression holds, then $ZPK$ will be collinear, implying that $ZPQ$ are collinear, and we'll be done.\V
+
+First, $NZ/ZA = MI/IA$ by virtue of the fact that $IZ\parallel MN$. There's not much else we can do with this expression, so we'll leave it be for now.\V
+
+Next, let's look at $TK/KN$. We would like to express it as closely as possible with the relationship that we have for $NZ/ZA$ (i.e, some relationship that involves $MI$ and $IA$). The natural connection between $NK$ and $AM$ is power of a point, which gives us that 
+\[IA\cdot MI = NI\cdot IT.\]
+Because we derived earlier that $IT=TK$, it now remains to force $KN$ into our relationship. We can do this through another application of power of a point, namely that
+\[NB^2 = NI\cdot NK.\]
+Dividing our first expression by our second thus gives us that $TK/KN = IA\cdot MI/NB^2$.\V
+
+Plugging our expressions into Eq~\ref{men}, it now remains to prove that
+\begin{equation}\label{home}
+\frac{AP}{PT} = \frac{NB^2}{MI^2} = \frac{NB^2}{MB^2} = \cot^2{\left(\frac{A}{2}\right)}.\tag{2}
+\end{equation}
+
+We're in the home stretch now. Again, because we know that our Menelaus \textit{has} to work, since we're given that it works in the problem statement, we know there must be a way to muscle our way through and prove Eq~\ref{home}.\V
+
+By some final leap of faith, we find that the relationship $AP/PT = AI/IS$ (where $S$ is the center of $\omega_A$, our A-mixtilinear incircle) is what we need to finish the problem. This relationship holds true by virtue of $\mathcal{H}_A$ in Claim 2.0. Letting $B_1$ be the tangency point between $\omega_A$ and $AB$, we can now muscle our way through the final bit of calculation: 
+\begin{align*}
+    \cot^2{\left(\frac{A}{2}\right)} = \frac{IB_1^2}{IS^2} = \frac{IS\cdot AI}{IS^2} =\frac{AI}{IS}.
+\end{align*}
+... and we're finally done. Now it's time to write everything up!
+\newpage
+\section*{Write Up}
+\begin{solution}
+\textbf{Solution} (based off of AoPS user \textbf{MarkBcc168})\textbf{:}
+\begin{center}
+\begin{asy}
+import graph; size(17cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -22.87008609760426, xmax = 29.129669256079627, ymin = -19.869210021719127, ymax = 12.36593243735188;  /* image dimensions */
+pen zzttff = rgb(0.6,0.2,1); pen qqzzcc = rgb(0,0.6,0.8); pen ccqqqq = rgb(0.8,0,0); pen ffvvqq = rgb(1,0.3333333333333333,0); pen ffwwzz = rgb(1,0.4,0.6); 
+
+draw((-5.376661168975351,8.431578421270396)--(-8,-6)--(8,-6)--cycle, linewidth(0.7) + zzttff); 
+fill((-5.376661168975351,8.431578421270396)--(-8,-6)--(8,-6)--cycle, zzttff+opacity(0.08)); 
+draw((-5.283477365914407,8.112137690353492)--(-4.964036634997504,8.205321493414438)--(-5.057220438058448,8.52476222433134)--(-5.376661168975351,8.431578421270396)--cycle, linewidth(0.7) + qqzzcc); 
+draw((-3.9926544314275576,0.28895109824553616)--(-4.085838234488502,0.6083918291624395)--(-4.405278965405405,0.5152080261014947)--(-4.312095162344461,0.19576729518459152)--cycle, linewidth(0.7) + qqzzcc); 
+draw((-2.50473278313644,-1.4135971626599317)--(-8,-6)--(-5.87001374511271,-16.74855085423441)--(8,-6)--cycle, linewidth(0.7) + ffwwzz); 
+fill((-2.50473278313644,-1.4135971626599317)--(-8,-6)--(-5.87001374511271,-16.74855085423441)--(8,-6)--cycle, ffwwzz + opacity(0.1)); 
+draw((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998)--(-4.970686187216913,2.453464356797051)--cycle, linewidth(0.7) + ffwwzz); 
+fill((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998)--(-4.970686187216913,2.453464356797051)--cycle, ffwwzz + opacity(0.1)); 
+draw((0,10)--(-4.187373264124576,-9.081074008447168)--(-5.376661168975351,8.431578421270396)--cycle, linewidth(0.7) + ccqqqq); 
+fill((0,10)--(-4.187373264124576,-9.081074008447168)--(-5.376661168975351,8.431578421270396)--cycle, ccqqqq+opacity(0.1)); 
+ /* draw figures */
+draw(circle((0,0), 10), linewidth(0.7)); 
+draw((-5.376661168975351,8.431578421270396)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((-8,-6)--(8,-6), linewidth(0.7) + zzttff); 
+draw((8,-6)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + zzttff); 
+draw(circle((-2.50473278313644,-1.4135971626599317), 4.586402837340067), linewidth(0.7) + blue); 
+draw((-7.017188693876353,-0.5933334002094313)--(0.8589517732679097,1.7042093084616998), linewidth(0.7) + linetype("4 4")); 
+draw((-4.970686187216913,2.453464356797051)--(-2.5047327831364408,-6), linewidth(0.7) + linetype("4 4")); 
+draw(circle((-6.484540783236255,-3.48281678017835), 2.938167456055878), linewidth(0.7) + dotted); 
+draw(circle((1.8291435325096685,-4.5581490139734235), 6.337065867439999), linewidth(0.7) + dotted); 
+draw((-2.5047327831364377,9.269346380112081)--(-2.5047327831364408,-6), linewidth(0.7) + linetype("4 4")); 
+draw(circle((0,-10), 8.944271909999161), linewidth(0.7) + linetype("2 2")); 
+draw((-2.5047327831364377,9.269346380112081)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ccqqqq); 
+draw((0,10)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ccqqqq); 
+draw((0,-10)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ffvvqq); 
+draw((-2.50473278313644,-1.4135971626599317)--(0,-10), linewidth(0.7) + ffvvqq); 
+draw(circle((-1.7867506866767124,-3.874891058642511), 5.733003546675088), linewidth(0.7) + blue); 
+draw((0,10)--(-8,-6), linewidth(0.7) + zzttff); 
+draw((0,10)--(8,-6), linewidth(0.7) + zzttff); 
+draw((-2.50473278313644,-1.4135971626599317)--(-8,-6), linewidth(0.7) + ffwwzz); 
+draw((-8,-6)--(-5.87001374511271,-16.74855085423441), linewidth(0.7) + ffwwzz); 
+draw((-5.87001374511271,-16.74855085423441)--(8,-6), linewidth(0.7) + ffwwzz); 
+draw((8,-6)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + ffwwzz); 
+draw((-7.017188693876353,-0.5933334002094313)--(-4.425230845094731,-5.5785435225036535), linewidth(0.7) + ffwwzz); 
+draw((-4.425230845094731,-5.5785435225036535)--(0.8589517732679097,1.7042093084616998), linewidth(0.7) + ffwwzz); 
+draw((0.8589517732679097,1.7042093084616998)--(-4.970686187216913,2.453464356797051), linewidth(0.7) + ffwwzz); 
+draw((-4.970686187216913,2.453464356797051)--(-7.017188693876353,-0.5933334002094313), linewidth(0.7) + ffwwzz); 
+draw((0,10)--(-4.187373264124576,-9.081074008447168), linewidth(0.7) + ccqqqq); 
+draw((-4.187373264124576,-9.081074008447168)--(-5.376661168975351,8.431578421270396), linewidth(0.7) + ccqqqq); 
+draw((-5.376661168975351,8.431578421270396)--(0,10), linewidth(0.7) + ccqqqq); 
+draw((-5.376661168975351,8.431578421270396)--(-2.50473278313644,-1.4135971626599317), linewidth(0.7) + linetype("4 4")); 
+draw((0,-10)--(-8,-6), linewidth(0.7) + ffvvqq); 
+ /* dots and labels */
+dot((-5.376661168975351,8.431578421270396),dotstyle); 
+label("$A$", (-6.070165137183314,8.68359587972961), NE * labelscalefactor); 
+dot((-8,-6),dotstyle); 
+label("$B$", (-9.128974275635308,-6.410449812530356), NE * labelscalefactor); 
+dot((8,-6),dotstyle); 
+label("$C$", (8.565060125256222,-6.363391210400325), NE * labelscalefactor); 
+dot((-2.50473278313644,-1.4135971626599317),linewidth(4pt) + dotstyle); 
+label("$I$", (-2.0701839561307076,-1.1398863739669212), NE * labelscalefactor); 
+dot((0,-10),linewidth(4pt) + dotstyle); 
+label("$M$", (0.3768633546308871,-9.704551961632502), NE * labelscalefactor); 
+dot((0,10),linewidth(4pt) + dotstyle); 
+label("$N$", (-0.14078126879945024,10.471822760670775), NE * labelscalefactor); 
+dot((-2.5047327831364408,-6),linewidth(4pt) + dotstyle); 
+label("$D$", (-2.7760629880811676,-7.116328844480815), NE * labelscalefactor); 
+dot((0.8589517732679097,1.7042093084616998),linewidth(4pt) + dotstyle); 
+label("$E$", (1.0356837844513165,2.060098570875164), NE * labelscalefactor); 
+dot((-7.017188693876353,-0.5933334002094313),linewidth(4pt) + dotstyle); 
+label("$F$", (-7.717216211734387,-0.33989013775639987), NE * labelscalefactor); 
+dot((-4.970686187216913,2.453464356797051),linewidth(4pt) + dotstyle); 
+label("$R$", (-4.999582879672486,2.848329215605808), NE * labelscalefactor); 
+dot((-4.425230845094731,-5.5785435225036535),linewidth(4pt) + dotstyle); 
+label("$P$", (-4.234879654112118,-5.186926157149558), NE * labelscalefactor); 
+dot((-4.187373264124576,-9.081074008447168),linewidth(4pt) + dotstyle); 
+label("$T$", (-4.0466452455919955,-10.363372391452932), NE * labelscalefactor); 
+dot((-3.959779848265595,-1.9800159879667052),linewidth(4pt) + dotstyle); 
+label("$Q$", (-4.281938256242149,-3.1634062655582396), NE * labelscalefactor); 
+dot((-2.504732783136439,3.1728056746801356),linewidth(4pt) + dotstyle); 
+label("$D'$", (-2.305476966780861,3.3659738390361455), NE * labelscalefactor); 
+dot((-2.5047327831364377,9.269346380112081),linewidth(4pt) + dotstyle); 
+label("$Z$", (-2.9172387944712597,9.813002330850346), NE * labelscalefactor); 
+dot((-5.87001374511271,-16.74855085423441),linewidth(4pt) + dotstyle); 
+label("$K$", (-6.776044169133774,-17.42216271095753), NE * labelscalefactor); 
+dot((-1.7867506866767124,-3.874891058642511),linewidth(4pt) + dotstyle); 
+label("$S$", (-1.3643049241802476,-4.057519706028822), NE * labelscalefactor); 
+dot((-7.427320611872849,-2.849561557866305),linewidth(4pt) + dotstyle); 
+label("$B_{1}$", (-8.61132965220497,-2.7398788463879638), NE * labelscalefactor); 
+dot((2.417855113505958,0.022366917327182014),linewidth(4pt) + dotstyle); 
+label("$C_{1}$", (2.776852063262451,0.13069588354390677), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+Orient the diagram so that $BC$ is horizontal. Let $\omega$, $\Omega$, and $\omega_A$ denote the incircle, circumcircle, and A-mixtilinear incircle of $\triangle{ABC}$, respectively. Additionally, let $M$, $N$ be the bottommost and topmost points on $\Omega$, and let $S$, $B_1$ denote the center and tangency point between $\omega_A$ and $AB$, respectively.\V
+
+Because $A, I, M$ are collinear, the problem is equivalent to proving that $P,Q,Z$ are collinear, where $Z = PQ\cap AN$. We now proceed with a ceries of claims: \V
+
+\begin{claim}
+Claim 1: $BQIC$ is concyclic.
+\end{claim}\V
+
+\textit{Proof.} We have that 
+\[\angle{BQC} = \angle{BQP} + \angle{CQP} = \angle{BFP} + \angle{CEP} = 0.5\cdot \wideparen{FPE}.\]
+But note that $\wideparen{FRE} = 180^{\circ}-A$, implying that 
+\[\angle{BQC} = 90^{\circ}+A/2 = \angle{BIC},\]
+as desired.\V
+
+\begin{claim}
+Claim 2: $T = AR\cap \Omega$ is the $A$-mixtilinear touchpoint.
+\end{claim}\V
+
+\textit{Proof.} Denote $D'$ the antipode of $D$ in $\omega$. Then, we have that $\angle{D'IA} = \angle{RDI} = 0.5\cdot \angle{RID'}$, implying that $\angle{D'IA} = \angle{RIA}$. However, because $R$ and $D'$ are both points on $\omega$, this implies that $AR$ and $AD'$ are symmetric with respect to $\angle{BAC}$, so the intersection between line $AR$ and $\Omega$ is the $A$-mixtilinear touchpoint by well known properties of mixtilinear incircles, as desired.\V
+
+\begin{claim}
+Claim 3. Let $K = PQ\cap (BQIC)$. Then, quadrilateral $KBIC$ is harmonic.
+\end{claim}\V
+
+\textit{Proof.} First, note that quadrilateral $PFRE$ is harmonic, so it suffices to prove that $PFRE\sim KBIC$. \V
+
+We first prove $\triangle{RFE}\sim \triangle{IBC}$. We have that $\angle{IBC} = B/2$, and that $\angle{RDF} = 0.5\cdot \wideparen{FD} = 90^{\circ}-B/2$. Because $RD\perp FE$, this implies that $\angle{IBC} = \angle{RFE}$. A similar argument holds to prove $\angle{ICB} = \angle{REF}$, so our result is as desired.\V
+
+It now suffices to prove $\triangle{FPE} \sim \triangle{BKC}$. We have that $\angle{KBC} = \angle{KQC} = \angle{PQC} = \angle{PEC} = \angle{PFE}$. A similar argument holds to proving $\angle{KCB} = \angle{PEF}$, so we're done. 
+
+\V\rule{\textwidth}{0.3pt} \vspace{0.3cm}
+
+Now we proceed with the proof of the main result. \V
+
+By Claim 3, and well known properties of mixtilinear incircles, we have that $N,I,T,K$ are collinear. Moreover, because $M$ is the center of $(BQIC)$ (by virtue of Fact $5$), we thus have that $TK=IT$.\V
+
+By Menelaus's theorem in $\triangle{ANT}$ and $\overline{ZPK}$, it suffices to prove that 
+\[\frac{NZ}{ZA}\cdot \frac{AP}{PT}\cdot \frac{TK}{KN} = 1.\]
+We have that $NZ/ZA = MI/IA$ by similar triangles $\triangle{APZ}$ and $\triangle{ATN}$. Also, by two applications of power of a point, we have that $IA\cdot MI=NI\cdot IT = NI\cdot TK$, and $NB^2 = NI\cdot NK$, so $TK/KN = IA\cdot MI/NB^2$. Finally, 
+\[\frac{AP}{PT} = \frac{AI}{IS} = \frac{IS\cdot AI}{IS^2} = \frac{IB_1^2}{IS^2} = \cot^2{\left(\frac{A}{2}\right)},\]
+where the first equality follows from the fact that $MN\parallel IZ$, and the rest follows by observing $IB_1\perp AS$ and $IF\perp AB_1$ in $\triangle{AB_1S}$ and $\triangle{AIB_1}$, respectively. Multiplying together our three ratios, it now remains to prove that 
+\[\cot^2{\left(\frac{A}{2}\right)} \cdot \frac{MI^2}{NB^2}=1,\]
+but this follows from the facts that $MI=MB$, and $\angle{BNM} = A/2$ in $\triangle{BNM}$, so we're done.
+\end{solution}
+
+
+
+
+
+
+
+
+
+
+
+

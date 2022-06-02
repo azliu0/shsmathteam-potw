@@ -1,0 +1,22 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (intended)\textbf{:}\newline
+\textit{Solution equivalent to the submissions by \textbf{Faizaan Siddique}, \textbf{Shaurya Agrawal}, and \textbf{Jaden Chen}!}\V
+
+Divide through by $7$, so that we seek all $n$ such that 
+\begin{align*}
+    111a+11b+c &= 1000 \\
+    3a+2b+c &= n.
+\end{align*}
+
+Let $S_k$ denote the set of all possible values of $n$ when $a=k$, for $0\leq k\leq 9$. Now, our central claim:\V
+
+\begin{claim}\textbf{Claim.}
+\[S = \bigcup_{k=0}^8S_k = \{1000-9k\vert 0\leq k\leq 106\}.\]
+\end{claim}\V
+
+\textit{Proof (main idea).} First note that $n$ is invariant modulo $9$, owing to the fact that $111a\equiv 3a$ and $11b\equiv 2b$ modulo $9$. It follows that $n\equiv 1000\pmod{9}$. Note also that the maximum element in $S$ is when $c=1000$, giving $n=1000$; similarly, the minimum element in $S$ is when $(a,b,c) = (8,10,2)$, giving $n=46$. It thus remains to verify that the unions fully cover our desired residue class, which is not too hard with casework.\qed\V
+
+We have $107$ values of $n$ in $S$. Our final case is when $a=9$, which gives us the additional solution $n=28$, for a total of $107+1 = \boxed{108}$ possible values of $n$.
+\end{solution}

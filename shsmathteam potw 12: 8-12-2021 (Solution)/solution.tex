@@ -1,0 +1,17 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (AoPS)\textbf{:}
+\newline
+\textit{This solution is also equivalent to the solution submitted by \textbf{Faizaan Siddique}!}\V
+
+We claim that the only solution is $n=75$.\V
+
+We want to solve the equation 
+\begin{equation}\label{eq:1}
+    n+f(n) = 10^m,
+\end{equation}
+for $m\geq 0$. First note that $f(n)$ divides both $n$ and $f(n)$; therefore, $f(n)$ divides $10^m$, so $f(n) = 2^a\cdot 5^b$. Let $p$ be the smallest prime divisor of $n$, so that $f(n) = n/p$. \V
+
+If $a>0$, then we must have $p=2$. Plugging this into Eq~\ref{eq:1}, we get that $3f(n)=10^m$, which is a contradiction since any power of $10$ is not a multiple of $3$. Therefore, $a=0$, and consequently $f(n)=5^b$, whence $p\in \{2,3,5\}$. One more application of Eq~\ref{eq:1} then gives us $5^b(1+p) = 10^m$, in which we see that $p=3$ is the only option that works (the others run into divisibility issues). Therefore, $5^b = 5^m\cdot 2^{m-2}$, giving us $m=b=2$ and thus $n=3\cdot 5^2=75$ is our only solution.
+\end{solution}\V

@@ -1,0 +1,84 @@
+The key idea for this problem is that while it \textit{can} be solved with algebra, it's better solved using a geometric analogy. For completeness, we'll present both the intended geometric solution, and an alternate algebraic solution.\V
+
+\begin{solution}
+\textbf{Solution 1} (intended)\textbf{:}\V
+
+\begin{center}
+\begin{asy}
+import graph; import math; size(6cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black+3; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+path r = unitcircle;
+draw(r);
+
+pair A = dir(90);
+pair B = dir(210);
+pair C = dir(270);
+pair D = dir(10);
+
+draw(A--B--C--D--cycle, blue);
+draw(A--C, dotted);
+draw(B--D, dotted);
+
+path rightanglemark(pair A, pair B, pair C, real s=2.75)
+{ 
+	pair P,Q,R; 
+	P=s*0.03*unit(A-B)+B; 
+	R=s*0.03*unit(C-B)+B; 
+	Q=P+R-B; 
+	return P--Q--R;
+}
+draw(rightanglemark(A,B,C));
+draw(rightanglemark(A,D,C));
+draw(arc(A, 0.15, 240, 320), black);
+label("$\varphi$", A, dir(280)*4.5, black); 
+
+dot(A,dotstyle); 
+label("$A$", A, NW); 
+dot(B,dotstyle); 
+label("$B$", B, W); 
+dot(C,dotstyle); 
+label("$C$", C, SE); 
+dot(D,dotstyle); 
+label("$D$", D, E); 
+label("$a$", A--B, blue);
+label("$b$", B--C + (0.03,0.03), blue);
+label("$c$", C--D, blue);
+label("$d$", D--A, blue);
+\end{asy}
+\end{center}
+
+Let $a$, $b$, $c$, and $d$ be the side lengths of cyclic quadrilateral $ABCD$ (for now, we don't actually know that this quadrilateral exists, but we'll proceed under this presumption and cross our fingers that the equality cases work out). \V
+
+Let $\theta = \angle{ABC} = 180^{\circ} - \angle{ADC}$, and $\varphi = \angle{BAD} = 180^{\circ}-\angle{DCB}$. Now, from the law of cosines, we have:
+\begin{align*}
+    AC^2 &= a^2+b^2 - 2ab\cos{\theta} = c^2+d^2+2cd\cos{\theta} \tag{1}\\
+    BD^2 &= a^2+d^2 - 2ad\cos{\varphi} = b^2+c^2+2bc\cos{\varphi}.\tag{2}
+\end{align*}
+
+From equation 1, we have $0 = a^2+b^2-c^2-d^2 = 2\cos{\theta}(ab+cd)$, therefore $\theta = 90^{\circ}$. Moreover, from equation 2 we get that $\frac{56}{53}(bc+ad) = a^2-b^2-c^2+d^2 = 2\cos{\varphi}(ad+bc)$, so $\cos{\varphi} = \frac{28}{53}$ and $\sin{\varphi} = \frac{45}{53}$. Now, we have that:
+\[[ABCD] = \frac{1}{2}(ab+cd) = \frac{1}{2}\sin{\varphi}(ad+bc),\]
+giving us a final answer of 
+\[\frac{ab+cd}{bc+ad} = \frac{45}{53}.\]
+Note also that equality cases should be easy to construct based on $\theta$ and $\varphi$, so we are done.
+\end{solution}\newpage
+
+\begin{solution}
+\textbf{Solution 2} (algebraic, by tastymath)\textbf{:}\V
+
+Adding and subtracting our two conditions gives us:
+\begin{align*}
+    a^2-c^2 &= \frac{28}{53}(bc+ad) \\
+    b^2-d^2 &= -\frac{28}{53}(bc+ad).
+\end{align*}
+We also have the identity $(a^2-c^2)(b^2-d^2) = (ac+bd)^2-(ad+bc)^2$ (this can be motivated by norms in the complex plane, i.e, $\lVert a+bi\rVert\lVert c+di\rVert = \lVert (a+bi)(c+di)\rVert$). Thus, if we multiply together the above two equations, we get that 
+\[(ac+bd)^2-(bc+ad)^2 = -\left(\frac{28}{53}\right)^2(bc+ad)^2,\]
+implying that 
+\[\frac{ab+cd}{bc+ad} = \frac{45}{53},\]
+as desired.
+
+\end{solution}

@@ -1,0 +1,22 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (pad, AoPS)\textbf{:}\V
+
+The answer is $0$.\V
+
+First note that if $d$ divides $F_{420}-F_0$, and $F_{1+420} - F_{1}$, then 
+$d$ also divides $F_{n+420}-F_n$ for any $n$, by adding. Now, it suffices to calculate:
+\begin{align*}
+    \gcd{(F_{421} - 1,F_{420})} &= \gcd{(F_{419} - 1,F_{420})} \\
+    &= \gcd{(F_{419} - 1,F_{418}+1)} \\
+    &= \gcd{(F_{417} - F_3,F_{418}+F_2)} \\
+    &= \gcd{(F_{417} - F_3,F_{416}+F_4)} \\
+    &\quad\vdots \\
+    &= \gcd{(F_{211}-F_{209}, F_{210} + F_{210})}\\
+    &= F_{210}.
+\end{align*}
+
+To finish, there are many ways to calculate $F_{210} \pmod{130}$. The cleanest is probably to utilize the fact that $F_m\vert F_n$ for any $m\vert n$. This gives us that $F_3,F_5,F_7\vert F_{210}$, so in fact $2\cdot 5\cdot 13 = 130\vert F_{210}$ and our answer is $0$, as desired.
+
+\end{solution}\V

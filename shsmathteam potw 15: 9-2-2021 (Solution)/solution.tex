@@ -1,0 +1,44 @@
+% potw#5_6/24/2021_solution.pdf
+
+\section*{Part (1)}
+
+\begin{solution}
+\textbf{Solution 1}\textbf{:}\V
+
+Let $S$ be the value of our desired quantity. Multiplying by $2$, we get that 
+\begin{align*}
+    2S &= \sum_{k=0}^{\infty} 2\binom{2k+1}{k}\frac{1}{5^k} \\
+    &= \sum_{k=0}^{\infty} \frac{2k+2}{k+1}\cdot \frac{(2k+1)!}{k!(k+1)!} \frac{1}{5^k} \\
+    &= 5 \sum_{k=0}^{\infty} \binom{2k+2}{k+1} \frac{1}{5^{k+1}} \\
+    &= 5 \left(\sum_{i=0}^{\infty} \binom{2i}{i} \frac{1}{5^i} - 1\right),
+\end{align*}
+
+so $S = \frac{5(\sqrt{5}-1)}{2}$.
+\end{solution}
+
+\begin{solution}
+\textbf{Solution 2}\textbf{:}\newline
+\textit{Solution submitted by \textbf{Jeffrey Chen}!}\V
+
+As in our first solution, let $S$ be the value of our desired quantity. We have that
+\begin{align*}
+    S &= \sum_{k=0}^{\infty} \binom{2k+1}{k}\frac{1}{5^k} \\
+    &= 2\sum_{k=0}^{\infty} \binom{2k}{k}\frac{1}{5^k} - \frac{1}{k+1} \sum_{k=0}^{\infty} \binom{2k}{k}\frac{1}{5^k}.
+\end{align*}
+Recognize that the right-hand sum mimics the generating function for the \href{https://en.wikipedia.org/wiki/Catalan_number}{Catalan Numbers}, which is given by
+\[\sum_{n=0}^{\infty}\frac{\binom{2n}{n}}{n+1}x^n = \frac{1-\sqrt{1-4x}}{2x}.\]
+
+Plugging in $x=\frac{1}{5}$, we get 
+\begin{align*}
+    S = 2\sqrt{5} - \frac{1 - \sqrt{1/5}}{2/5} = \frac{5\sqrt{5}-5}{2},
+\end{align*}
+as desired.
+\end{solution}
+
+\section*{Part (2)}
+
+\begin{solution}
+\textbf{Sketch} (Benq)\textbf{:}\V
+
+Let $a = x+y$, $b=x-y$, whence the two given equations can be rewritten $3a^2+b^2 = 8$, $ab=\sqrt{5}$. Solving gives $(a,b) = (\pm \sqrt{\frac{5}{3}}, \pm \sqrt{3}), (\pm 1, \pm \sqrt{5})$. These can be used to solve for $x$, some of which may be extraneous.
+\end{solution}

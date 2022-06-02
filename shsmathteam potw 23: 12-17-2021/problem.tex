@@ -1,0 +1,84 @@
+% potw#7_7/8/2021.pdf
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#23: Adventures on the 9-point Circle, Part 1}}\vspace{5pt}
+
+\textit{Geometry}\V
+
+% If $AB$ be the diameter of a semicircle, and $TP$, $TQ$ the tangents to it from any point $T$, and if $AQ$, $BP$ be joined meeting in $R$, then $TR$ is perpendicular to $AB$.\V
+
+Let $AB$ be the diameter of a semicircle $\Omega$ oriented such that $AB$ is horizontal. For any point $T$ above $AB$ and outside $\Omega$, let $TP$ and $TQ$ be the tangents to $\Omega$ from $T$. If $AQ$ and $BP$ intersect at $R$, prove that $TR$ is perpendicular to $AB$. \V
+
+\begin{asy}
+ /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+import graph; size(5cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(8); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -5.323081864995561, xmax = 12.892007449178276, ymin = -2.3023409900066194, ymax = 8.26405923658661;  /* image dimensions */
+
+ /* draw figures */
+draw((-2,0)--(6,0), linewidth(0.7)); 
+draw((3.36164,6.81458)--(-0.7563949428021721,2.898669853449097), linewidth(0.7)); 
+draw((3.36164,6.81458)--(5.658655587742267,1.6168609372120686), linewidth(0.7)); 
+draw((-0.7563949428021721,2.898669853449097)--(6,0), linewidth(0.7)); 
+draw((5.658655587742267,1.6168609372120686)--(-2,0), linewidth(0.7)); 
+draw((3.36164,6.81458)--(3.36164,0), linewidth(0.7)); 
+draw(shift((2,0))*xscale(4)*yscale(4)*arc((0,0),1,0,180), linewidth(0.7)); 
+ /* dots and labels */
+dot((-2,0),dotstyle); 
+label("$A$", (-2.221854969706334,-0.14290506226291735), W * labelscalefactor); 
+dot((6,0),dotstyle); 
+label("$B$", (6.314794203607814,-0.14290506226291735), NE * labelscalefactor); 
+dot((3.36164,6.81458),dotstyle); 
+label("$T$", (3.4300515520418218,6.978288226174329), NE * labelscalefactor); 
+dot((-0.7563949428021721,2.898669853449097),linewidth(4pt) + dotstyle); 
+label("$P$", (-1.253662740677892,3.0055854888748468), NE * labelscalefactor); 
+dot((5.658655587742267,1.6168609372120686),linewidth(4pt) + dotstyle); 
+label("$Q$", (5.853235379357256,1.6209090161231599), NE * labelscalefactor); 
+dot((3.36164,1.1319253328571863),linewidth(4pt) + dotstyle); 
+label("$R$", (3.4300515520418218,1.2582556542120038), NE * labelscalefactor); 
+dot((3.36164,0),linewidth(4pt) + dotstyle); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */
+\end{asy}
+\hspace{1cm}
+\begin{asy}
+ /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+import graph; size(6cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -9.928686925329604, xmax = 14.109518906256604, ymin = -0.7372857954729302, ymax = 13.207048990089865;  /* image dimensions */
+
+ /* draw figures */
+draw((-2,0)--(6,0), linewidth(0.7)); 
+draw((3.580567211697576,4.048601338417577)--(1.8814999146412223,3.998244330924507), linewidth(0.7)); 
+draw((3.580567211697576,4.048601338417577)--(4.796099327776604,2.8603895799710957), linewidth(0.7)); 
+draw((1.8814999146412223,3.998244330924507)--(6,0), linewidth(0.7)); 
+draw((4.796099327776604,2.8603895799710957)--(-2,0), linewidth(0.7)); 
+draw(shift((2,0))*xscale(4)*yscale(4)*arc((0,0),1,0,180), linewidth(0.7) + dotted); 
+draw(circle((2.7902836058487863,2.024300669208788), 2.1730948844982603), linewidth(0.7)); 
+draw((3.5805672116975753,5.748414712917858)--(3.5805672116975735,0), linewidth(0.7)); 
+draw((3.5805672116975753,5.748414712917858)--(-2,0), linewidth(0.7)); 
+draw((3.5805672116975753,5.748414712917858)--(6,0), linewidth(0.7)); 
+draw((1.8814999146412223,3.998244330924507)--(2,0), linewidth(0.7)); 
+draw((4.796099327776604,2.8603895799710957)--(2,0), linewidth(0.7)); 
+ /* dots and labels */
+dot((-2,0),dotstyle); 
+dot((6,0),dotstyle); 
+dot((2,0),dotstyle); 
+dot((3.580567211697576,4.048601338417577),dotstyle); 
+dot((1.8814999146412223,3.998244330924507),linewidth(4pt) + dotstyle); 
+dot((4.796099327776604,2.8603895799710957),linewidth(4pt) + dotstyle); 
+dot((3.580567211697575,2.3487879639172933),linewidth(4pt) + dotstyle); 
+dot((3.5805672116975735,0),linewidth(4pt) + dotstyle); 
+dot((3.5805672116975753,5.748414712917858),linewidth(4pt) + dotstyle); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */
+\end{asy}
+
+\V
+
+\textit{Hint: The first diagram is embedded in the second. Can you see where (look at the outlined semicircle)? In the second diagram, the black circle is the 9-point circle of the largest triangle. What properties does this circle have that help solve the problem?} 
+\end{potw}\V
+

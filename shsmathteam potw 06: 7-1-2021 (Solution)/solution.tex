@@ -1,0 +1,27 @@
+This problem employs an idea which has widespread use in problems pertaining to expected value: the so-called \textit{linearity of expectation}. The linearity of expectation is usually most easily understood in the context of an example problem, so we'll present two different solutions: our first utilizing direct counting methods, and the second utilizing the linearity of expectation.\V
+
+\begin{solution}
+\textbf{Solution 1} (no lin-ev)\textbf{:}\V
+
+Note that our problem is equivalent to calculating the expected value of the product $abcde$ given that $a+b+c+d+e=100$. Let $X$ denote our desired quantity for arbitrarily chosen $a,b,c,d,$ and $e$.\V
+
+Then, by the definition of expected value, we have that:
+
+\begin{align*}
+    \mathbb{E}(X) &= \sum n\cdot P(X=n) \\
+    &= \sum_{\substack{a_1+a_2+a_3 \\ +a_4+a_5=100}} a_1a_2a_3a_4a_4a_5\cdot \left(\frac{100!}{a_1!a_2!a_3!a_4!a_5!}\right)/(5^{100}) \\
+    &= \left(\frac{100!}{95!\cdot 5^{100}}\right)\sum_{\substack{a_1+a_2+a_3 \\ +a_4+a_5=100}}\frac{95!}{(a_1-1)!(a_2-1)!(a_3-1)!(a_4-1)!(a_5-1)!} \\
+    &= \left(\frac{100!}{95!\cdot 5^{100}}\right)(1+1+1+1+1)^{95} = \boxed{\frac{100!}{95!\cdot 5^5}}.
+\end{align*}
+\end{solution}\V
+
+\begin{solution}
+\textbf{Solution 2} (lin-ev)\textbf{:}\V
+
+Consider the sequence $x_1, \hdots, x_{100}$, where $x_i$ represents the type of plushee that Hannah bought for her $i$-th friend. \V
+
+Now consider the set of tuples
+\[S = \{(x_a, x_b, x_c, x_d, x_e): 1\leq a,b,c,d,e\leq 100\},\]
+where $x_a$, $x_b$, $x_c$, $x_d$, and $x_e$ correspond to Hannah picking Shirokuma, Pengium, Tonkatsu, Neko, and Tokage, respectively. Clearly, the size of $S$ is equivalent to our desired answer. Then, by the linearity of expectation, it suffices to calculate the total number of possible tuples, multiplied by the probability that they are in $S$, which is equal to 
+\[\frac{100!}{95!}\cdot \left(\frac{1}{5}\right)^5 = \boxed{\frac{100!}{95!\cdot 5^5}}.\]
+\end{solution}

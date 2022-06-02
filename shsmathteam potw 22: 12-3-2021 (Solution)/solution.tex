@@ -1,0 +1,66 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution}\textbf{:}\newline
+\textit{Solution equivalent to the submissions by \textbf{Jeffrey Chen}!}\V\V
+
+The answer is $\boxed{10\sqrt{3}/3}$.
+
+\begin{center}
+\begin{asy}
+ /* Geogebra to Asymptote conversion, documentation at artofproblemsolving.com/Wiki go to User:Azjps/geogebra */
+import graph; size(10cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+real xmin = -5.5755268923520997, xmax = 5.574751455072265, ymin = -4.589487704075614, ymax = 5.083401945407071;  /* image dimensions */
+pen zzttff = rgb(0.6,0.2,1); 
+
+draw((1.9091134048455998,3.773176028002478)--(-2.8867513459481287,0)--(0,-1.8865880140012405)--(2.8867513459481287,0)--cycle, linewidth(0.7) + zzttff); 
+fill((1.9091134048455998,3.773176028002478)--(-2.8867513459481287,0)--(0,-1.8865880140012405)--(2.8867513459481287,0)--cycle, zzttff+opacity(0.08)); 
+ /* draw figures */draw(shift((0,0))*rotate(0)*xscale(5)*yscale(4.0824829046386295)*unitcircle, linewidth(0.7)); 
+draw((0,4.0824829046386295)--(0,-4.082482904638629), linewidth(0.7)); 
+draw((-5,0)--(5,0), linewidth(0.7)); 
+draw((xmin, -0.3373132502834374*xmin + 4.417145275750626)--(xmax, -0.3373132502834374*xmax + 4.417145275750626), linewidth(0.7) + dotted); /* line */
+draw((1.9091134048455998,3.773176028002478)--(0,-1.8865880140012405), linewidth(0.7)); 
+draw(circle((0,1.2652786308746917), 3.1518666448759323), linewidth(0.7)); 
+draw(circle((1.3943415217869952,2.2470815664713877), 1.6105757967582808), linewidth(0.7) + dotted); 
+draw((1.9091134048455998,3.773176028002478)--(-2.8867513459481287,0), linewidth(0.7) + zzttff); 
+draw((-2.8867513459481287,0)--(0,-1.8865880140012405), linewidth(0.7) + zzttff); 
+draw((0,-1.8865880140012405)--(2.8867513459481287,0), linewidth(0.7) + zzttff); 
+draw((2.8867513459481287,0)--(1.9091134048455998,3.773176028002478), linewidth(0.7) + zzttff); 
+ /* dots and labels */
+dot((2.8867513459481287,0),dotstyle); 
+label("$F_{2}$", (2.7589978407144013,-0.59245079229233415), NE * labelscalefactor); 
+dot((-2.8867513459481287,0),linewidth(4pt) + dotstyle); 
+label("$F_{1}$", (-3.2444396401534873,-0.5776724933071818), NE * labelscalefactor); 
+dot((1.9091134048455998,3.773176028002478),dotstyle); 
+label("$P$", (2.013186705664656,3.922812511372165), NE * labelscalefactor); 
+dot((0.6363711349485336,0),linewidth(4pt) + dotstyle); 
+label("$X$", (0.6979180959861038,-0.4185592973665722), NE * labelscalefactor); 
+dot((0,-1.8865880140012405),linewidth(4pt) + dotstyle); 
+label("$Y$", (-0.522279360190985,-2.398851361376993), NE * labelscalefactor); 
+dot((1.3943415217869952,2.2470815664713877),dotstyle); 
+label("$O$", (1.5107245401694787,2.060746839242963), NE * labelscalefactor); 
+dot((0,0),linewidth(4pt) + dotstyle); 
+label("$M$", (-0.48089772993001214,0.13956797117315203), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */
+\end{asy}
+\end{center}\V
+
+Let $F_1$ and $F_2$ be the two foci of $\mathcal{E}$. By the reflection property of ellipses, $OP$ bisects $\angle{F_1PF_2}$. Because $Y$ lies on the perpendicular bisector of $F_1F_2$, it follows that $YF_1PF_2$ has circumcircle $\omega$.\V
+
+Let $M$ be the center of $\mathcal{E}$, $c = F_1M = F_2M$, and $d = MX$. By power of a point wrt $X$ in $\omega$, $(c+d)(c-d) = 8\implies c^2-d^2=8$. Moreover, by Ptolemy's, we have: 
+\[PF_1\cdot YF_2 + PF_2\cdot YF_1 = F_1F_2\cdot PY = 12c.\]
+
+But because $YF_1=YF_2$, and $PF_1+PF_2=10$, the above expression simplifies:
+\begin{align*}
+    12c &= 10\cdot YF_1 \\
+    &= 10\sqrt{F_1M^2 + MY^2} \\ 
+    &= 10\sqrt{c^2 + 2^2 - d^2} \\
+    &= 20\sqrt{3}.
+\end{align*}
+
+Therefore, $2c = 10\sqrt{3}/3$, as desired.
+\end{solution}\V

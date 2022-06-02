@@ -1,0 +1,12 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution (intended)}\textbf{:}\V
+
+The function $f(x) = \sqrt[i]{1-x^i}$ is symmetrical about the line $y=x$ for all integer $i\geq 2$. Also, the function $f(x)=x$ is symmetrical about the same line. Therefore, $A_k = 1/2$ for all $k\geq 2$, and our desired sum can be computed: 
+\begin{align*}
+    \sum_{k=2}^{\infty} \frac{(-A_k)^k}{k} &= \sum_{k=2}^{\infty} \frac{(-1/2)^k}{k} \\
+    &= -\sum_{k=1}^{\infty} \frac{(-1/2)^{k+1}}{k} + \frac{1}{2} \\
+    &= \frac{1}{2} - \ln{\left(\frac{3}{2}\right)}.
+\end{align*}
+\end{solution}\V

@@ -1,0 +1,72 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (intended)\textbf{:}\V
+
+Note that our square has side length $\frac{\sqrt{2}}{2}(\sqrt{0.2^2+1.4^2})=1$. Therefore, it suffices to consider $v\in \{0\leq x\leq 1, 0\leq y\leq 1\}$ (call this unit-square region $\mathcal{H}$).\V
+
+Consider the region of overlap $\mathcal{R}$ between $T((0,0))$ and $T((1,0))$. For all points $v_i$ in $\mathcal{R}$, $T(v_0)$ contains both $(0,0)$ and $(1,0)$; moreover, for all $v_i$ not in $\mathcal{R}$, then $T(v_0)$ cannot contain both points. This follows from the fact that, for any two identical squares $X$ and $Y$ in the coordinate plane, the center of $X$ is contained in the region bounded by $Y$ if and only if the center of $Y$ is contained in the region bounded by $X$.\V
+
+\begin{center}
+\begin{asy}
+import graph; size(10cm); 
+real labelscalefactor = 0.5; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black;
+real xmin = -1, xmax = 2, ymin = -1, ymax = 1;
+real markscalefactor=0.02;
+path rightanglemark(pair A, pair B, pair C, real s=8)
+{ 
+	pair P,Q,R; 
+	P=s*markscalefactor*unit(A-B)+B; 
+	R=s*markscalefactor*unit(C-B)+B; 
+	Q=P+R-B; 
+	return P--Q--R;
+}
+
+Label laxis; laxis.p = fontsize(10); 
+xaxis(xmin, xmax, Arrows(2)); 
+yaxis(ymin, ymax, Arrows(2)); 
+
+pair A = (0.1,0.7); 
+pair B = (-0.7, 0.1); 
+pair C = (-0.1, -0.7); 
+pair D = (0.7, -0.1); 
+draw(A--B--C--D--cycle, blue);
+fill(A--B--C--D--cycle, blue+opacity(0.04));
+
+pair A_0 = A+(1,0);
+pair B_0 = B+(1,0);
+pair C_0 = C+(1,0);
+pair D_0 = D+(1,0);
+draw(A_0--B_0--C_0--D_0--cycle, blue);
+fill(A_0--B_0--C_0--D_0--cycle, blue+opacity(0.04));
+
+dot(A, 3+blue); 
+label("$A$", A, N);
+dot(A_0, 3+blue); 
+label("$B$", A_0, N);
+pair X = intersectionpoint(A--D, A_0--B_0);
+pair Y = intersectionpoint(C--D, B_0--C_0);
+draw(A--A_0--X--cycle, blue+dotted);
+draw(X--B_0--Y--D--cycle, red);
+fill(X--B_0--Y--D--cycle, red+opacity(0.05));
+
+dot(X, 3+blue);
+label("$C$", X, E*2);
+
+label(scale(0.75)*"$(-1,-1)$", (-1,-1), S); 
+dot((0,0), black); 
+label("$(0,0)$", (0,0), SW);
+dot((1,0), black); 
+label("$(1,0)$", (1,0), S);
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+Thus, in the diagram above, we desire the area of the region of the red rectangle above the $x$-axis. Because $AB=1$, we have that $AC=0.6$ and $BC=0.8$ (for example, by considering $\angle{ABC}$), from which it follows that the dimensions of our rectangle are $0.2$ and $0.4$. Because there are four of these half-rectangles in $\mathcal{H}$, our final answer is 
+\[4\left(\frac{1}{2}\cdot 0.2\cdot 0.4\right)=\frac{4}{25}.\]
+\vspace{0.3cm} \rule{\textwidth}{0.3pt}
+
+Here's a nice video explanation by Richard Rusczyk: \url{https://youtu.be/fm36K88S0LU}.
+\end{solution}

@@ -1,0 +1,24 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (Classical, counting)\textbf{:}\V
+
+The answer is $1/2$. \V
+
+Say that we \textit{win} if the passenger gets his last seat, and we \textit{lose} otherwise. The key idea is that for each passenger boarding the plane whose seat is already taken, there is an equal probability that a win or a loss is guaranteed. For example, suppose that the first passenger sits in the spot of the tenth passenger. Passengers 2-9 have no issues sitting in their own seats; however, passenger 10 is forced to sit in any random seat. If he sits in seat 1, then we automatically win; conversely, if he sits in seat 100, then we automatically lose. These two conditions happen with equally probability. If passenger 10 sits in any other seat, then the result of our situation is simply delayed, since then we will have to wait for the next passenger whose seat is already taken to choose at random the fate of our "game". Ultimately, because the probability of us winning or losing for any of these passengers is equal, then the total probability of us winning or losing is also equal, so our final answer is as desired.
+\end{solution}\V
+
+\begin{solution}
+\textbf{Solution} (Classical, algebra)\textbf{:}
+\newline
+\textit{This solution is also equivalent to the solution submitted by \textbf{Faizaan Siddique}!}\V
+
+We will use strong induction to prove that the answer is $1/2$ for any $n$ passengers, where $n>1$. Let $P(n)$ be our desired probability for any $n$ passengers.\V
+
+Clearly, we must have $P(1) = 1$. For all other $n$, we can set up the following recurrence relationship: 
+\[P(n) = \frac{1}{n}\sum_{i=2}^{n}P(i),\]
+which follows by examining each of the $n$ possible positions of the first passenger. Assuming that our induction hypothesis holds true for $1 < n \leq k$, it thus follows that
+\[P(k+1) = \frac{1}{k+1}\left(1 + \frac{k-1}{2}\right) = \frac{1}{2},\]
+
+so we are finished by the principle of strong induction.
+\end{solution}\V

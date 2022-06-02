@@ -1,0 +1,19 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution}\textbf{:}\V
+
+Because $AB$ is our longest side, define $E\in AB$ such that $AECD$ is a parallelogram. We proceed with casework on the different ways to label sides $BC, CD, DA$ with $18-x, 18-2x, 18-3x$, for $0\leq x < 6$.\V
+
+If $DC=18-x$, then $EB = 18-DC=x$, and $\{AD, CB\} = \{EC, CB\} = \{18-2x, 18-3x\}$. In both cases, $\triangle{ECB}$ is degenerate, and $ABCD$ is a rhombus, so $a=18$ works.\V
+
+If $DC=18-2x$, then $EB=2x$, and $\{EC, CB\} = \{18-x, 18-3x\}$, again giving us $a=18$ as our only solution.\V
+
+If $DC = 18-3x$, then $EB=3x$, and $\{EC, CB\} = \{18-x, 18-2x\}$. If $EC = 18-x$, then by law of cosines on $\triangle{ECB}$ we have: 
+\[(18-2x)^2 = (18-x)^2+(3x)^2-(3x)(18-x)\implies x=2,\]
+giving us $\{AD, DC, CB\} = \{12, 14, 16\}$. If $EC = 18-2x$, then we similarly have: 
+\[(18-x)^2=(18-2x)^2+9x^2-3x(18-2x)\implies x=5,\]
+giving us $\{AD, DC, CB\} = \{3, 8, 13\}$. \V
+
+Finally, summing over all possible $a$, we get that $3\cdot 8 + 3\cdot 14 + 18 = 84$ is our answer.
+\end{solution}

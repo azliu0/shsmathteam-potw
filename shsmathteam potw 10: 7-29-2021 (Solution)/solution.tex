@@ -1,0 +1,85 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (intended)\textbf{:}
+\newline
+\textit{This solution is also equivalent to the solution submitted by \textbf{Benjamin Chen}!}\V
+
+First, note that the parity conditions dictates that there be no cycles in $G$; otherwise, the subgraph of $G$ without the cycles contradicts the minimality of $|E(G)|$. This directly implies that $G$ is a connected tree (if it was disconnected, then it would contain cycles) with exactly $9$ edges. \V
+
+Now, the sum of the degrees of of the vertices in $G$ is $18$, so it is easy to check that the only valid cases for the degrees of vertices of $(1,2,3,4)$ are $(1,1,1,1)$, or $(3,1,1,1)$ (and permutations).\V
+
+\hspace{1.8cm}
+\begin{asy}
+import graph; size(5cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen dotstyle = black; /* point style */ 
+pen purpledot = rgb(0.4,0,0.8);
+real xmin = -10.357658721691909, xmax = 10.359508828649926, ymin = -4.9403518058586195, ymax = 8.945420965163157;  /* image dimensions */
+pen wwqqcc = rgb(0.4,0,0.8); 
+ /* draw figures */draw(shift((-7.027116333231688,0.6774877655560841))*rotate(91.06899616059921)*xscale(1.6714511733157515)*yscale(1.1796384116961183)*unitcircle, linewidth(0.7)); draw(shift((-4.049499860519367,0.7911706910468004))*rotate(-93.25840164624657)*xscale(1.7144128087593777)*yscale(1.1466374960430903)*unitcircle, linewidth(0.7)); draw(shift((-1.4217193173364202,1.1446645829110915))*rotate(-99.43331337726329)*xscale(1.714484134329641)*yscale(1.0331215309136041)*unitcircle, linewidth(0.7)); draw(shift((1.638102483224036,1.5306399134198048))*rotate(-106.03261184901564)*xscale(1.6912578405466088)*yscale(1.1509854297821842)*unitcircle, linewidth(0.7)); 
+draw((-6.481990113128106,-0.8148436151311435)--(-3.42491,-3.64299), linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(-4.092500829759265,-0.9216348297478398), linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(-1.706122732760111,-0.5460600209806699), linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(0.9962876389667116,-0.020911348918491335), linewidth(0.7)); 
+draw((0.0009250534790083921,5.762842388447217)--(1.9840620141652603,3.1808089395277594), linewidth(0.7)); 
+draw((-2.0261950590789013,5.681757583944899)--(-1.2151281005076742,2.8437796215036424), linewidth(0.7)); 
+draw((-3.891145562632178,5.519587974940265)--(-3.9539624911694817,2.502918153702535), linewidth(0.7)); 
+draw((-5.91827,5.41823)--(-7.015217716311379,2.3483373513363284), linewidth(0.7)); draw(shift((-2.909135901467852,5.7496340527654946))*rotate(4.471010092041438)*xscale(4.262820813044963)*yscale(1.7758998044564793)*unitcircle, linewidth(0.7) + dotted + wwqqcc); 
+ /* dots and labels */
+dot((-5.91827,5.41823),purpledot); 
+dot((-3.891145562632178,5.519587974940265),purpledot); 
+dot((-2.0261950590789013,5.681757583944899),purpledot); 
+dot((0.0009250534790083921,5.762842388447217),purpledot); 
+dot((-3.42491,-3.64299),dotstyle); 
+dot((-6.481990113128106,-0.8148436151311435),dotstyle); 
+dot((-4.092500829759265,-0.9216348297478398),dotstyle); 
+dot((-1.706122732760111,-0.5460600209806699),dotstyle); 
+dot((0.9962876389667116,-0.020911348918491335),dotstyle); 
+dot((1.9840620141652603,3.1808089395277594),dotstyle); 
+dot((-1.2151281005076742,2.8437796215036424),dotstyle); 
+dot((-3.9539624911694817,2.502918153702535),dotstyle); 
+dot((-7.015217716311379,2.3483373513363284),dotstyle); 
+label("$A$", (-6.202062490948195,7.158843254856393), NE * labelscalefactor,wwqqcc); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\hspace{1.2cm}
+\begin{asy}
+import graph; size(5cm); 
+real labelscalefactor = 0.5; /* changes label-to-point distance */
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); /* default pen style */ 
+pen purpledot = rgb(0.4,0,0.8);
+pen dotstyle = black; /* point style */ 
+real xmin = -10.357658721691909, xmax = 10.359508828649926, ymin = -5.122792615988834, ymax = 8.762980155032944;  /* image dimensions */
+
+ /* draw figures */draw(shift((-5.711738352816856,1.5006627304420694))*rotate(-93.25840164624702)*xscale(1.7144128087593824)*yscale(1.1466374960430916)*unitcircle, linewidth(0.7)); draw(shift((-2.881245798378116,1.5906310076738355))*rotate(-99.4333133772634)*xscale(1.714484134329645)*yscale(1.0331215309136055)*unitcircle, linewidth(0.7)); draw(shift((-0.08494961245018698,1.6117247179221208))*rotate(-106.03261184901568)*xscale(1.6912578405466094)*yscale(1.150985429782186)*unitcircle, linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(-5.754739322056768,-0.21214279035257522), linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(-3.2059033380480932,-0.09180093977654824), linewidth(0.7)); 
+draw((-3.42491,-3.64299)--(-0.4302074449525424,-0.03853064723517696), linewidth(0.7)); 
+draw((-1.4180590253115282,6.289893617712276)--(0.26100991849103816,3.261893744030076), linewidth(0.7)); 
+draw((-2.4518902827160622,6.249351215461118)--(-2.508206073337077,3.2593539128951816), linewidth(0.7)); 
+draw((-3.4654503389950166,6.249351215461119)--(-5.616200983466958,3.212410193097808), linewidth(0.7)); 
+ /* dots and labels */
+dot((-3.4654503389950166,6.249351215461119),purpledot); 
+dot((-2.4518902827160622,6.249351215461118),purpledot); 
+dot((-1.4180590253115282,6.289893617712276),purpledot); 
+dot((-3.42491,-3.64299),purpledot); 
+dot((-5.754739322056768,-0.21214279035257522),dotstyle); 
+dot((-3.2059033380480932,-0.09180093977654824),dotstyle); 
+dot((-0.4302074449525424,-0.03853064723517696),dotstyle); 
+dot((0.26100991849103816,3.261893744030076),dotstyle); 
+dot((-2.508206073337077,3.2593539128951816),dotstyle); 
+dot((-5.616200983466958,3.212410193097808),dotstyle); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */
+\end{asy}
+\V
+
+In the former case, the vertices not in A must have one vertex with degree 4 and the rest degree 2. We thus get four "branches" stemming from the central vertex with degree $4$, where the $4$ vertices in $A$ are the leaves of each branch. By stars and bars, are $\binom{8}{3}$ ways to distribute the five remaining vertices throughout the four branches, and $6!$ to permutate all vertices not in $A$, for a total of $6!\cdot \binom{8}{3}$ graphs in this case.\V
+
+In the latter case, all vertices not in $A$ must have degree $2$; therefore, in this case there are only three "branches" stemming from a central vertex, where the central vertex and the three leaves are the $4$ vertices in $A$. There are $4$ ways to pick the central vertex. By stars and bars, there are $\binom{8}{2}$ ways to distribute the six remaining vertices throughout the three branches, and again $6!$ ways to permutate them. Therefore, this case gives us a total of $4\cdot 6!\cdot \binom{8}{2}$ graphs.\V
+
+Our final answer is thus 
+\[6!\cdot \binom{8}{3} + 4\cdot 6!\cdot \binom{8}{2} = \boxed{3\cdot 8!\text{ graphs}}.\]
+\end{solution}\V

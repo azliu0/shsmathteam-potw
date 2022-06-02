@@ -1,0 +1,138 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.2in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+\fancypagestyle{logo}{
+  \renewcommand{\headrulewidth}{1pt}
+  \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+  \cfoot{\thepage}
+} %this failed
+\fancypagestyle{regular}{
+  \lhead{PoTW 2: Week of 6-3-2021}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 2: Week of 6-3-2021}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+\pagestyle{regular}
+
+\newtcolorbox{potw}{breakable, colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+{\large Submission form (because this week's problem is lengthy, partial solutions are okay to submit): \href{https://forms.gle/EHPS5WeVKvznCnp67}{link to submit}\V}
+
+{\large For hints, or other inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}\V}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#2: Catalan Craziness}}\vspace{5pt}
+
+\textit{Topic: Combinatorics}\V
+
+Suppose that we have a set of $2n$ letters, $n$ of which are $X$'s, and $n$ of which are $Y$'s. Consider any sequence $S$ of all $2n$ letters which obeys the property that, in any of the sub-sequences of $S$ beginning with the first letter, the number of $Y$'s never exceeds the number of $X$'s. For example, for $n=3$, the following sequences are all valid:
+\begin{align*}
+    &XXXYYY \\
+    &XXYXXY \\
+    &XXYYXY \\
+    &XYXXYY \\
+    &XYXYXY, 
+\end{align*}
+because in each sequence, there does not exist a $k$ for which the first $k$ letters of the sequence has more $Y$'s than $X$'s. \V
+
+It is well known that the number of ways to create such a sequence can be described by the \textit{Catalan numbers}, which obey the following expression: 
+\[C_n = \frac{1}{n+1}\binom{2n}{n}.\]
+For instance, $C_3=5$ as depicted in the above example. Although there are many ways to prove this formula, in this problem we will try to motivate a solution which generalizes easily to "higher-order" Catalan numbers (to be defined later). \V
+
+Suppose that we call any sequence of $n$ $X$'s and $n$ $Y$'s which does not obey the property described above as a \textit{bad} sequence.
+
+\begin{enumerate}
+    \item [(a).] Based on the formula for the $n$th Catalan number, calculate the number of bad sequences of length $2n$, in terms of $n$.
+\end{enumerate}
+
+If done correctly, this should equal the number of sequences of $n-1$ $X$'s, and $n+1$ $Y$'s (all of which are bad). Therefore, in order to prove our formula for the $n$-th Catalan number, it remains to prove that the number of bad sequences which comprises of $n$ $X$'s and $n$ $Y$'s, is equal to the number of sequences which comprises of $n-1$ $X$'s and $n+1$ $Y$'s.
+
+\begin{enumerate}
+    \item [(b).] Any sequence which starts with $1$ $X$ and $2$ $Y$'s, in some order, must be bad. Calculate the number of sequences comprising of $n$ $X$'s and $n$ $Y$'s which start with $1$ $X$ and $2$ $Y$'s (in some order), and then do the same for sequences comprising of $n-1$ $X$'s and $n+1$ $Y$'s. Show that these quantities are equal. 
+    \item [(c).] Finish the proof. \V
+    
+    \textit{(helpful hint: use the previous question to motivate the rest of your solution. more specifically, any bad sequence must start with k X's and k+1 Y's in some order)}.
+\end{enumerate}
+
+Having established a formula for the $n$th Catalan number, now suppose that we extend the definition of what defines a good and bad sequence. Suppose that now we define a good sequence as one with the property that the number of $Y$'s never exceeds \textit{twice} the number of $X$'s in any of the initial subsequences of our sequence, and call these sequences as \textit{2-good} sequences. For example, the number of 2-good sequences which comprise of $2$ $X$'s and $4$ $Y$'s is $3$: 
+\begin{align*}
+    &XXYYYY \\
+    &XYXYYY \\
+    &XYYXYY.
+\end{align*}
+And now, call the \textit{2nd-order} Catalan number $C_n^{(2)}$ as the number of 2-good sequences which comprise of $n$ $X$'s and $2n$ $Y$'s. For instance, in the above example, we have that $C_2^{(2)} = 3$. 
+\begin{enumerate}
+    \item [(d).] Prove that 
+    \[C_n^{(2)} = \frac{1}{2n+1}\binom{3n}{n}.\]
+    
+    \textit{(helpful hint: the way that we proved the formula for $C_n$ in parts $(a)$, $(b)$, and $(c)$ can be used in the exact same manner to prove this formula.)}
+    \item [(e).] Find and prove a formula for $C_n^{(m)}$, the \textit{mth-order} Catalan number, defined as the number of m-good sequences which comprise of $n$ $X$'s and $m\cdot n$ $Y$'s. \V
+    
+    \textit{(helpful hint: as before, the exact same method in the first four parts of this problem works for this part as well.)}
+\end{enumerate}
+\end{potw} 
+
+
+
+\end{document}

@@ -1,0 +1,18 @@
+% potw#5_6/24/2022_solution.pdf
+
+\begin{solution}
+\textbf{Solution }(equivalent to \textbf{gf4848} on AoPS)\textbf{:}\V
+
+We know that 
+\[a_{n+2}+a_{n+2}a_{n+1} = a_n + 2022.\]
+
+By shifting indices, we also have that
+\[a_{n+3}+a_{n+3}a_{n+2} = a_{n+1} + 2022.\]
+
+Subtracting these two equations gives us that 
+\[a_{n+3} - a_{n+1} = \frac{a_{n+2}-a_n}{a_{n+2}+1}.\]
+
+Because each $a_i$ are all positive integers, $b_i = a_{i+2} - a_i$ is also a positive integer sequence. On the other hand, the relationship above implies that $b_i$ is strictly decreasing, which is impossible given that the first few terms of $a_i$ are finite. Thus, we must have $b_i=0$, so the problem reduces to minimizing $a_1 + a_2$ over all $a_1a_2 = 2022$.\V
+
+A word on motivation: motivating this solution comes more naturally by testing smaller cases. In any of the possibilities that you try for $a_1$, $a_2$, you'll find quickly that $a_3 = a_1$ is forced. 
+\end{solution}\V

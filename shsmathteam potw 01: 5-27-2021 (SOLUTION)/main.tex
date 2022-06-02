@@ -1,0 +1,205 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.5in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+% \fancypagestyle{logo}{
+%   \renewcommand{\headrulewidth}{1pt}
+%   \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+%   \cfoot{\thepage}
+% } %this failed
+\fancypagestyle{regular}{
+  \lhead{Solution for PoTW 1: Week of 5-27-2021}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 1: Week of 5-27-2021 (solution)}\thanks{For inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+\pagestyle{regular}
+
+\newtcolorbox{potw}{colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{theorem}{colback = white, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#1: Vexing Hexagon}}\vspace{5pt}
+
+\textit{Topic: Geometry}\V
+
+Hexagon $ALSGJC$ has the curious property that all of its opposite sides are parallel; that is, $\overline{AL}\parallel \overline{GJ}$, $\overline{LS}\parallel \overline{JC}$, and $\overline{SG}\parallel \overline{CA}$. Suppose that $\overline{AL} = 21\sqrt{2}$, $\overline{LS} = 9\sqrt{3}$, $\overline{SG} = 18\sqrt{3}$, $\overline{GJ} = 9\sqrt{2}$, $\overline{JC} = 14\sqrt{3}$, and $\overline{CA} = 7\sqrt{3}$. If $R$ is the length of the circumradius of $\triangle{ASJ}$, compute $(R^2-378)$.
+
+\begin{center}
+\begin{asy}
+import graph; size(4cm); 
+real labelscalefactor = 1; 
+pen dps = linewidth(0.7) + fontsize(8); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -37.22335233903808, xmax = 87.98858123933726, ymin = -5.503710527715942, ymax = 46.56773178138556;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+draw((2.7919691060151783,24.087442963317148)--(0,0)--(10.392304845413264,0)--(46.759692566997145,11.636713896456762)--(48.58943426663159,27.11741301867404)--(12.216367307685168,27.117413018674043)--cycle, linewidth(1) + black); 
+
+dot((0,0),dotstyle); 
+label("$J$", (-4.9759515386338322,-2.5305719678690916), NE * labelscalefactor); 
+dot((10.392304845413264,0),dotstyle); 
+label("$G$", (10.235854744833219,-4.5305719678690916), NE * labelscalefactor); 
+dot((46.759692566997145,11.636713896456762),dotstyle); 
+label("$S$", (47.784825476929346,10.540808319644318), NE * labelscalefactor); 
+dot((48.58943426663159,27.11741301867404),dotstyle); 
+label("$L$", (48.960325195293024,27.991353618545197), NE * labelscalefactor); 
+dot((12.216367307685168,27.117413018674043),linewidth(4pt) + dotstyle); 
+label("$A$", (11.211354463196902,28.31273459774866), NE * labelscalefactor); 
+dot((2.7919691060151783,24.087442963317148),linewidth(4pt) + dotstyle); 
+label("$C$", (0.54454636098022,25.076211244207442), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+\textit{Source: CMC Mock ARML, by Eric Shen.}
+\end{potw}\newpage
+
+Before diving into the solution, we begin with a brief segue on Power of a Point, which not only ends up being the crux of our problem, but more generally is extremely useful for a wide variety of different geometric configurations. The way that the theorem is normally formulated looks something like the following: \V
+
+\begin{theorem}
+\textbf{Power of a Point:} Consider a circle $\omega$, and a point $Q$ which does not lie on $\omega$. Let $AB$ and $CD$ be two chords of $\omega$ such that $Q$ lies on the intersection of $\overleftrightarrow{AB}$ and $\overleftrightarrow{CD}$. Then 
+\[QA\cdot QB = QC\cdot QD.\]
+\end{theorem}\V
+
+Note that this definition encompasses all possible cases: if $Q$ lies outside of $\omega$, then we have two secants (or tangents, in the cases that point $A$ is equal to point $B$, or point $C$ is equal to point $D$); and, if $Q$ lies inside $\omega$, then we have two intersecting chords.\V
+
+Of particular interest to us is the invariance of the quantity $QA\cdot QB$ encoded in the statement of the theorem; in other words, regardless of the location of the chord $AB$ with respect to $\omega$, the theorem tells us that this quantity will always be constant. Therefore, for any point $Q$, we can call the value of this quantity as the \textit{power} of $Q$ with respect to $\omega$, which we can denote as $P(Q, \omega)$. \V
+
+Because this quantity is the same for any arbitrary chord that we choose in $\omega$, we can calculate it by choosing the chord which lies on the same line determined by $Q$ and the center of $\omega$, call $O$. Let $R$ denote the radius of $\omega$. Then, using this chord, we get that 
+\[P(Q, \omega) = (OQ+R)(OQ-R) = OQ^2-R^2,\]
+where $P(Q,\omega)$ is negative if $R$ lies inside $\omega$, zero if $R$ lies on $\omega$, and positive if $R$ lies outside of $\omega$. \V
+
+Reformulating the original PoP theorem in terms of $P(Q, \omega)$ vastly expands the usage of the theorem and its applicability to more complex problems. For our purposes, we only examine one particular corollary of this reformulation: \V
+
+\begin{theorem}
+\textbf{Corollary:} Any set of points $\mathcal{H}$ which all have the same power with respect to $\omega$ lie on a circle concentric to $\omega$. 
+\end{theorem}\V
+
+The proof follows naturally from the definition of $P(Q, \omega)$. For any point $A\in \mathcal{H}$, because we must have $P(A, \omega) = OA^2-R^2$, for the power to be constant, we simply require that $OA$ be constant. In other words, we must have that all the points in $\mathcal{H}$ lie at a fixed radius from $O$, which concludes our proof. We are now ready to present our solution. \newpage
+
+\begin{solution} \textbf{Solution} (intended, by the problem author): \newline
+\textit{This solution is also equivalent to the solution submitted by \textbf{Jessica He}!}   
+
+\begin{center}
+\begin{asy}
+import graph; size(7cm); 
+real labelscalefactor = 0.5; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -37.22335233903808, xmax = 87.98858123933726, ymin = -5.503710527715942, ymax = 46.56773178138556;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+draw((2.7919691060151783,24.087442963317148)--(0,0)--(10.392304845413264,0)--(46.759692566997145,11.636713896456762)--(48.58943426663159,27.11741301867404)--(12.216367307685168,27.117413018674043)--cycle, linewidth(1) + purple); 
+fill((2.7919691060151783,24.087442963317148)--(0,0)--(10.392304845413264,0)--(46.759692566997145,11.636713896456762)--(48.58943426663159,27.11741301867404)--(12.216367307685168,27.117413018674043)--cycle, purple + opacity(0.1)); 
+ 
+ 
+ 
+draw(circle((23.29069058589878,5.738700326363976), 14.188074465040119), linewidth(1) + blue + dotted); 
+draw(circle((23.391202635743173,5.772723830119179), 24.09300108258048), linewidth(1) + blue + dotted); 
+draw((46.759692566997145,11.636713896456762)--(36.19475556374684,11.636713896456762), linewidth(1) + RGB(231, 84, 128) + linetype("2 2")); 
+draw((36.19475556374684,11.636713896456762)--(10.386625608050723,11.636713896456765), linewidth(1) + RGB(231, 84, 128)); 
+draw((12.216367307685168,27.117413018674043)--(10.386625608050723,11.636713896456765), linewidth(1) + RGB(231, 84, 128) + linetype("2 2")); 
+draw((10.386625608050723,11.636713896456765)--(9.367176847063382,3.011573231785257), linewidth(1) + RGB(231, 84, 128)); 
+draw((0,0)--(9.367176847063382,3.011573231785257), linewidth(1) + RGB(231, 84, 128) + linetype("2 2")); 
+draw((9.367176847063382,3.011573231785257)--(36.19475556374684,11.636713896456762), linewidth(1) + RGB(231, 84, 128)); 
+
+
+
+
+dot((0,0),dotstyle); 
+label("$J$", (-3.4759515386338322,-1.4305719678690916), NE * labelscalefactor); 
+dot((10.392304845413264,0),dotstyle); 
+label("$G$", (10.235854744833219,-3.2305719678690916), NE * labelscalefactor); 
+dot((46.759692566997145,11.636713896456762),dotstyle); 
+label("$S$", (47.784825476929346,10.540808319644318), NE * labelscalefactor); 
+dot((48.58943426663159,27.11741301867404),dotstyle); 
+label("$L$", (48.960325195293024,27.991353618545197), NE * labelscalefactor); 
+dot((12.216367307685168,27.117413018674043),linewidth(4pt) + dotstyle); 
+label("$A$", (11.211354463196902,28.31273459774866), NE * labelscalefactor); 
+dot((2.7919691060151783,24.087442963317148),linewidth(4pt) + dotstyle); 
+label("$C$", (0.54454636098022,25.076211244207442), NE * labelscalefactor); 
+dot((10.386625608050723,11.636713896456765),linewidth(4pt) + dotstyle); 
+label("$A_1$", (10.735854744833219,12.362189298847778), NE * labelscalefactor); 
+dot((9.367176847063382,3.011573231785257),linewidth(4pt) + dotstyle); 
+label("$J_1$", (5.753450130452244,3.399166790215492), NE * labelscalefactor); 
+dot((36.19475556374684,11.636713896456762),linewidth(4pt) + dotstyle); 
+label("$S_1$", (36.546303249933416,12.362189298847778), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+\end{asy}
+\end{center}
+
+Construct points $A_1$, $S_1$, and $J_1$ in the interior of our hexagon, so that $ALSA_1$, $SGJS_1$, and $JCAJ_1$ are parallelograms. Let $\omega$ be the circumcircle of $\triangle{A_1S_1J_1}$, and observe that we have
+\begin{align*}
+    P(A, \omega) &= AA_1\cdot AJ_1 = LS\cdot JC = 378, \\
+    P(J, \omega) &= JJ_1\cdot JS_1 = CA\cdot SG = 378,\\
+    P(S, \omega) &= SS_1\cdot SA_1 = GJ\cdot AL = 378.
+\end{align*}
+
+It follows that the circumcircle of $\triangle{ASJ}$ is concentric to $\omega$ (by our corollary above). Therefore, if we let $r$ denote the length of the radius of $\omega$, then we have
+\[378 = P(A, \omega) = R^2-r^2 \implies R^2 - 378 = r^2,\]
+so it suffices to compute $r^2$. But note that because of the nature of the opposite parallel sides of our hexagon, we have $A_1J_1 = JC-LS = 5\sqrt{3}$, $A_1S_1 = AL - GJ = 12\sqrt{2}$, and $S_1J_1 = SG - CA = 11\sqrt{3}$. Therefore, $\triangle{A_1S_1J_1}$ is a right triangle with hypotenuse $11\sqrt{3}$, and thus 
+\[R^2 - 378 = r^2 = \left(\frac{11}{2}\sqrt{3}\right)^2 = \frac{363}{4}.\]
+\end{solution}
+
+
+\end{document}

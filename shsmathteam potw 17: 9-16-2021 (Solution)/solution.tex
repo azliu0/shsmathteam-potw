@@ -1,0 +1,28 @@
+% potw#5_6/24/2021_solution.pdf
+
+\begin{solution}
+\textbf{Solution} (intended)\textbf{:}\newline
+\textit{Solution equivalent to the submissions by \textbf{Jaden Chen}!}\V
+
+By observation we have that $x_1=3$. To compute $x_2$, note that 
+\[x_2^2\equiv 2\pmod{49} \implies x_2^2\equiv 2\pmod{7},\]
+which is equivalent to $x_2\equiv 3,4\pmod{7}$. Setting $x_2 = 7k+r$, where $r\in \{3,4\}$, we get that 
+\[2\equiv (7k+r)^2\equiv 14kr+r^2\pmod{49}.\]
+This yields $k\equiv 1\pmod{7}$ when $r=3$, and $k\equiv 5\pmod{7}$ when $r=4$, giving us a full solution set $x_2\equiv \pm10\pmod{49}$. Therefore, our minimal $x_2 = 10$. To compute $x_3$, we proceed similarly: 
+\[x_3^2\equiv 2\pmod{343}\implies x_3^2\equiv 2\pmod{49}.\]
+Setting $x_3 = 49k_2+r_2$, where $r_2\in \{10, 39\}$, gives us 
+\[2\equiv (49k_2+r_2)^2\equiv 98k_2r_2 + r_2^2\pmod{343}.\]
+This gives us $k_2\equiv 2\pmod{7}$ when $r_2=10$, and $k_2\equiv 4\pmod{7}$ when $r_2=39$, whence minimally $x_3=108$ and our final answer is $121$.\V
+
+\vspace{0cm}\rule{\textwidth}{0.3pt} \vspace{0.3cm}
+
+To prove the existence of $x_n$ for all $n\geq 1$, we can apply the same technique used above inductively. In particular, for our inductive hypothesis, presume that the equation 
+\[x_n^2\equiv 2\pmod{7^n}\]
+yields solutions $x_n\equiv \pm r_n\pmod{7^n}$ (our base case $n=1$ holds). Now, note that 
+\[x_{n+1}^2\equiv 2\pmod{7^{n+1}}\implies x_{n+1}^2\equiv 2\pmod{7^n},\]
+allowing us to rewrite $x_{n+1} = 7^{n}\cdot k + r$ for $k\in \{0,1,2,3,4,5,6\}$ and $r\in \{r_n, 7^{n}-r_n\}$. Simplifying, we therefore get that 
+\[2\equiv (7^n\cdot k + r)^2 \equiv 2\cdot 7^nkr + r^2\pmod{7^{n+1}}.\]
+Note that for each choice of $r$, $7^n$ divides $2-r^2$ by our inductive hypothesis; therefore, the two solutions arising from
+\[k \equiv (2-r^2)/(7^n\cdot 2r) \pmod{7},\]
+one for each choice of $r$, and indeed are our only possible solutions. Finally, because \[x_{n+1}^2 \equiv 2\pmod{7^{n+1}}\implies (-x_{n+1})^2\equiv 2\pmod{7^{n+1}},\] these two solutions take the form $x_{n+1}\equiv \pm r_{n+1}\pmod{7^{n+1}}$, so we are done.\qed
+\end{solution}

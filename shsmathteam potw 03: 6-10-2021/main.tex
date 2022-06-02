@@ -1,0 +1,99 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.2in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+\fancypagestyle{logo}{
+  \renewcommand{\headrulewidth}{1pt}
+  \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+  \cfoot{\thepage}
+} %this failed
+\fancypagestyle{regular}{
+  \lhead{PoTW 3: Week of 6-10-2021}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 3: Week of 6-10-2021}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+% \thispagestyle{logo}
+
+\newtcolorbox{potw}{colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{theorem}{colback = white, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+\newtcolorbox{remark}{breakable, colback=orange!10, colframe=orange, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+{\large Submission form: \href{https://forms.gle/EHPS5WeVKvznCnp67}{link to submit}\V}
+
+{\large For hints, or other inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}\V}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#3: The Sweetest Strawberry}}\vspace{5pt}
+
+\textit{Topic: Geometry}\V
+
+Banana lives in a world filled with rectangles. Her house is rectangular, her strawberry farm is rectangular, and, curiously, the strawberries that she grows on her strawberry farm are also rectangular. One day, her friend Anna comes to visit her farm, and together they picked out one of the sweetest rectangular strawberries that had ever been picked. They knew it was sweet because of its rich color and sweet-smelling strawberry goodness. Naturally, both wanting to experience equally the delight of indulging in one of the sweetest strawberries on the entire farm, they immediately began devising a plan to cut the strawberry exactly in half. The only tools they had at their disposal was a collection of sharp straight-edges, which could be used solely to mark points (arbitrarily, or as intersections of drawn lines), draw straight lines (going through any two marked points), and cut (along a drawn line). But, they weren't sure how to go about splitting the strawberry fairly.\V
+
+Prove that it \textit{is} possible for Anna and Banana to equally share their rectangular strawberry, by using only the tools and operations described above to devise a process which ultimately allows them to make a singular cut along one of the strawberry's two midlines (they refuse to cut the strawberry in half via any other means, because all other singular cuts along the strawberry destroy its rectangular integrity). Assume that anything not explicitly mentioned is not accessible to Anna or Banana; for example, the dimensions of the strawberry are not known. Also, assume that the strawberry is two-dimensional, and that they are only allowed to make one cut, so that no other method of sharing the strawberry other than the one described is acceptable.
+
+\end{potw}\V
+
+
+
+\end{document}

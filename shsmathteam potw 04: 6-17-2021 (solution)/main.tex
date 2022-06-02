@@ -1,0 +1,214 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx, enumitem}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.3in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+%lol emoji packages 
+\usepackage{textcomp}
+\usepackage{scalerel}
+\def\catheart{\scalerel*{\includegraphics{figures/1f63b.eps}}{\textrm{\textbigcircle}}}
+\def\lick{\scalerel*{\includegraphics{figures/1f60b.eps}}{\textrm{\textbigcircle}}}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+% \fancypagestyle{logo}{
+%   \renewcommand{\headrulewidth}{1pt}
+%   \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+%   \cfoot{\thepage}
+% } %this failed
+\fancypagestyle{regular}{
+  \lhead{Solution for PoTW 4: Week of 6-17-2021}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 4: Week of 6-10-2021 (solution)}\thanks{For inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+\pagestyle{regular}
+
+\newtcolorbox{potw}{colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{theorem}{colback = white, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{claim}{colback = gray!10, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+\newtcolorbox{remark}{breakable, colback=orange!10, colframe=orange, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#4: Phun Physics Phridays}}\vspace{5pt}
+
+\textit{Topic: Geometry/Physics}\newline
+\textit{Source: AoPS}\V
+
+Let square $RUDA$ have center $P$, and $XY$ be a segment passing through $P$ such that $X$ lies on $RU$ and $Y$ lies on $DA$. Identify the shape of the locus of all possible centroids of trapezoid $UDYX$.
+\end{potw}
+\newpage
+
+\begin{solution}
+\textbf{Solution 1} (intended)\textbf{:}\V
+
+We claim that the locus is parabolic.\V
+
+Suppose that we have a cube filled halfway with water with its bottom face on a flat plane, and that it is accelerating on the plane in a direction perpendicular to one of its faces (call $A$). Then, the problem is equivalent to proving that the projection of the center of mass of the water onto some face adjacent to $A$ (which isn't the top or bottom face) is a parabola.\V
+
+\begin{center}
+\begin{asy}
+import graph; import math; size(6cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black+3; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+real f = 0.3;
+
+pair A = (0,0);
+pair B = (1,0);
+pair C = (1,1);
+pair D = (0,1);
+pair O = (0.5,0.5);
+pair E = (0,0.5);
+pair F = (1,0.5);
+pair G = (0.5,0.25);
+pair Gnew = G + (0.06666,0.013333);
+
+pair X = (0,f);
+pair Y = (1,1-f);
+
+draw(A--B--C--D--cycle, linewidth(1));
+draw(X--Y, red);
+draw(E--F, linetype("2 2") + red);
+draw(X--E, linewidth(1)+red);
+draw(Y--F, linewidth(1)+red);
+fill(A--B--Y--X--cycle, blue+opacity(0.1));
+
+
+pair tail = (-0.2,0.5);
+pair tip = (-0.5, 0.5);
+
+draw(tail--tip,arrow = Arrow(3bp), linewidth(0.5));
+
+draw(arc(O, 0.1, 0, 21.8));
+
+
+real f(real x) { return 3(x-0.5)^2+0.25;}
+
+draw(graph(f,-0.025,1.025),black + linewidth(0.5) + dotted, Arrows(3bp));
+
+dot(X,dotstyle); 
+label("$X$", X, W); 
+dot(Y,dotstyle); 
+label("$Y$", Y, dir(0)); 
+dot(O,dotstyle); 
+label("$P$", O, N); 
+label(scale(0.9)*"$\theta$", O+0.1*dir(10.9), dir(10.9)*2); 
+dot(E,dotstyle); 
+label("$E$", E, W); 
+dot(F,dotstyle); 
+label("$F$", F, dir(0)); 
+dot(G,dotstyle); 
+label("$G$", G, S); 
+dot(Gnew,dotstyle); 
+label("$G'$", Gnew, SE); 
+dot(A,dotstyle); 
+label("$R$", A, W); 
+dot(B,dotstyle); 
+label("$U$", B, dir(0)); 
+dot(C,dotstyle); 
+label("$D$", C, dir(0)); 
+dot(D,dotstyle); 
+label("$A$", D, W); 
+
+
+
+label(scale(0.75)*"acceleration", tail--tip, N);
+label("$s$", A--B, S); 
+\end{asy}
+\end{center}
+
+This can be proven easily either by directly using the formula for center of mass, or using potential energy. Here we present the latter solution.\V
+
+Let $G$ be the center of mass of our system at rest, and $G'$ be the center of mass when our system is accelerating, as depicted in the diagram above. Let $s$ be the side length of the cube, $\rho$ be the density of water, and $\theta$ be the tilt of the water surface compared to horizontal (as a result of the cube's acceleration). Note that the total mass of our water is $M=\rho s^3/2$.\V
+
+In the diagram, note that the change in potential energy of the system (from rest) can be calculated by visualizing it as a shift from $\triangle{EPX}$ to $\triangle{FPY}$. The mass of the water contained in $\triangle{FPY}$ is $m = \frac{\rho s^3\tan{\theta}}{8}$, and because the center of mass of the triangle is located $1/3$ of the way up from $EF$, then our total change in potential energy is equal to 
+\[\Delta U_y = mg\Delta h_y = g\left(\frac{\rho s^3\tan{\theta}}{8}\right)\left(2\cdot \frac{s\tan{\theta}}{6}\right)= \frac{\rho g s^4\tan^2{\theta}}{24}. \]
+But this is also equal to $Mg(G'_y-G_y)$, and setting these two quantities equal and solving gives us that 
+\[G'_y - G_y = \frac{s}{12}\tan^2{\theta}.\]
+We can perform the same calculation in the $x$ direction (eg some imaginary gravitational potential is acting right to left), to get that 
+\[\Delta U_x = mg\Delta h_x = g\left(\frac{\rho s^3\tan{\theta}}{8}\right)\left(2\cdot \frac{s}{3}\right)= \frac{\rho g s^4\tan{\theta}}{12},\]
+and 
+\[G'_x - G_x = \frac{s}{6}\tan{\theta}.\]
+But now it is clear that the change in the center of mass is parabolic (parametric in $\tan{\theta}$), so we are done.
+\end{solution}\V
+
+For completeness, we will also present a solution framed directly in the perspective of the original problem (i.e, uses math only). It requires knowledge of projective geometry.\V
+
+\begin{solution}
+\textbf{Solution 2} (projective geometry, by Albert Wang)\textbf{:}\V
+
+As in the first solution, we aim to prove that the locus is parabolic.\V
+
+Let $G_1$ and $G_2$ be the centroids of $\triangle{XRU}$ and $\triangle{YXU}$, respectively. By linearity, $G'\in G_1G_2$. Also note that $G_2$ is fixed, because $UP$ does not change with respect to varying $\theta$.\V
+
+Let $P_\infty = RE\cap GP\cap UF$, $M_1$ be the midpoint of $RU$, and $M_2$ be the midpoint of $UY$.\V
+
+It is easy to verify that $M_1 = DG_2\cap GP_\infty$ (similar triangles), and that $M_2 = G'G\cap P_\infty D$ ($GG'$ is the midline of trapezoid $RUYX$). Also, $G_2G'\cap P_\infty P_\infty$ is the point at infinity on the line $G_2G' = G_2G_1$, which lies on $M_1M_2$ by homothety at $X$. \V
+
+Therefore, $M_1$, $M_2$, and $G_2G'\cap P_\infty P_\infty$ are collinear, implying by pascal's theorem that $DG_2G'GP_\infty P_\infty$ all lie on a single conic section. Moreover, because $P_\infty$ lies on the parabola through $G$,$A$,$D$ (by the focal point/directrix definition of a parabola), it follows that $G'$ must also lie on the same parabola, and we are finished.
+\end{solution}
+
+
+
+\end{document}

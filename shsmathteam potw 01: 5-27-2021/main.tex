@@ -1,0 +1,126 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.5in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+\fancypagestyle{logo}{
+  \renewcommand{\headrulewidth}{1pt}
+  \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+  \cfoot{\thepage}
+} %this failed
+\fancypagestyle{regular}{
+  \lhead{PoTW 1}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 1: Week of 5-27-2021}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+% \thispagestyle{logo}
+
+\newtcolorbox{potw}{colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+{\large Submission form: \href{https://forms.gle/EHPS5WeVKvznCnp67}{link to submit}\V}
+
+{\large For hints, or other inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}\V}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#1: Vexing Hexagon}}\vspace{5pt}
+
+\textit{Topic: Geometry}\V
+
+Hexagon $ALSGJC$ has the curious property that all of its opposite sides are parallel; that is, $\overline{AL}\parallel \overline{GJ}$, $\overline{LS}\parallel \overline{JC}$, and $\overline{SG}\parallel \overline{CA}$. Suppose that $\overline{AL} = 21\sqrt{2}$, $\overline{LS} = 9\sqrt{3}$, $\overline{SG} = 18\sqrt{3}$, $\overline{GJ} = 9\sqrt{2}$, $\overline{JC} = 14\sqrt{3}$, and $\overline{CA} = 7\sqrt{3}$. If $R$ is the length of the circumradius of $\triangle{ASJ}$, compute $(R^2-378)$.
+
+\begin{center}
+\begin{asy}
+import graph; size(4cm); 
+real labelscalefactor = 1; 
+pen dps = linewidth(0.7) + fontsize(8); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -37.22335233903808, xmax = 87.98858123933726, ymin = -5.503710527715942, ymax = 46.56773178138556;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+draw((2.7919691060151783,24.087442963317148)--(0,0)--(10.392304845413264,0)--(46.759692566997145,11.636713896456762)--(48.58943426663159,27.11741301867404)--(12.216367307685168,27.117413018674043)--cycle, linewidth(1) + black); 
+
+ /* dots and labels */
+dot((0,0),dotstyle); 
+label("$J$", (-4.9759515386338322,-2.5305719678690916), NE * labelscalefactor); 
+dot((10.392304845413264,0),dotstyle); 
+label("$G$", (10.235854744833219,-4.5305719678690916), NE * labelscalefactor); 
+dot((46.759692566997145,11.636713896456762),dotstyle); 
+label("$S$", (47.784825476929346,10.540808319644318), NE * labelscalefactor); 
+dot((48.58943426663159,27.11741301867404),dotstyle); 
+label("$L$", (48.960325195293024,27.991353618545197), NE * labelscalefactor); 
+dot((12.216367307685168,27.117413018674043),linewidth(4pt) + dotstyle); 
+label("$A$", (11.211354463196902,28.31273459774866), NE * labelscalefactor); 
+dot((2.7919691060151783,24.087442963317148),linewidth(4pt) + dotstyle); 
+label("$C$", (0.54454636098022,25.076211244207442), NE * labelscalefactor); 
+clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+ /* end of picture */
+\end{asy}
+\end{center}
+
+\textit{Helpful hint: Power of a Point. The accuracy of the diagram isn't too important.}
+
+\end{potw}\V
+
+
+
+\end{document}

@@ -1,0 +1,500 @@
+\documentclass{article} 
+\usepackage[T1]{fontenc}
+% \usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8]{inputenc}
+
+
+% change font size
+% \usepackage[font = ???]{scrextend}
+
+% change font
+\renewcommand{\familydefault}{\sfdefault} %changes font for the whole document
+\usepackage{sfmath} %changes font for math mode
+
+% math packages
+\usepackage[dvipsnames]{xcolor}
+\usepackage{mathtools, amssymb, amsthm, empheq, xfrac, asymptote, hyperref, graphicx, enumitem}
+\hypersetup{
+    colorlinks=true, 
+    linktoc=all,    
+    linkcolor=blue,  
+}
+\usepackage[many]{tcolorbox}
+% \usepackage{titlesec}
+\usepackage[stable]{footmisc}
+\usepackage[margin = 1.3in]{geometry}
+% \usepackage{indentfirst} % if using indentation and want the first paragraph after each section to also be indented
+
+% putting the bars underneath each section
+% \titleformat{\section}
+% {\normalfont\Large\bfseries}{\thesection}{1em}{}[\vspace{8pt}{\titlerule[1pt]}]
+
+%lol emoji packages 
+\usepackage{textcomp}
+\usepackage{scalerel}
+\def\catheart{\scalerel*{\includegraphics{figures/1f63b.eps}}{\textrm{\textbigcircle}}}
+\def\lick{\scalerel*{\includegraphics{figures/1f60b.eps}}{\textrm{\textbigcircle}}}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy} %allow header+footer
+\fancyhf{} %clear default commands
+% \lhead{}
+% \rhead{}
+% \fancypagestyle{logo}{
+%   \renewcommand{\headrulewidth}{1pt}
+%   \lhead{\includegraphics[width=4cm]{logo.png}\vspace{0.2cm}}
+%   \cfoot{\thepage}
+% } %this failed
+\fancypagestyle{regular}{
+  \lhead{Solution for PoTW 3: Week of 6-10-2021}
+  \rhead{SHS Math Team}
+  \cfoot{\thepage}
+} %use on every subsequent page of the solution
+
+
+% commands
+\newcommand{\problem}[2]{\textbf{Problem #1} (#2)\textbf{.}}
+\newcommand{\V}{
+
+\vspace{\baselineskip}
+
+}
+\renewcommand{\comment}[1]{\textbf{\textcolor{Red}{#1}}}
+
+\title{{\fontfamily{lmss}\selectfont \vspace{-0.5cm}
+\textbf{PoTW 3: Week of 6-10-2021 (solution)}\thanks{For inquiries: \href{mailto:andliu22@students.d125.org}{andliu22@students.d125.org}}}}
+% \title{\textbf{PoTW 1: 12-29-2020}}
+\author{Problem of the Week at \href{https://shsmathteam.com/problem-of-the-week/}{shsmathteam.com}}
+\date{}
+
+% \setlength{\droptitle}{1.1cm}
+
+\begin{document}
+
+\noindent\hfill\includegraphics[width=6cm]{logo.png}\hfill\hfill\newline
+\rule{\textwidth}{1pt} 
+
+\setlength{\parindent}{0cm}
+{\let\newpage\relax\maketitle}
+\pagestyle{regular}
+
+\newtcolorbox{potw}{colback=purple!10, colframe=purple, arc = 0.125mm, boxrule=0.3mm}
+\newtcolorbox{theorem}{colback = white, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{claim}{colback = gray!10, colframe=black, arc = 0mm, boxrule=0.1mm}
+\newtcolorbox{solution}{breakable, colback=gray!10, colframe=gray, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+\newtcolorbox{remark}{breakable, colback=orange!10, colframe=orange, arc = 0mm, boxrule = 0mm, leftrule=0.5mm}
+
+\vspace{-0.45cm}\rule{\textwidth}{1pt} \vspace{0.3cm}
+
+\begin{potw}\vspace{5pt}
+{\large\textbf{Problem of the Week \#3: The Sweetest Strawberry}}\vspace{5pt}
+
+\textit{Topic: Geometry}\newline
+\textit{Source: Rephrased from 2020 PUMaC Indiv Finals A2}\V
+
+Banana lives in a world filled with rectangles. Her house is rectangular, her strawberry farm is rectangular, and, curiously, the strawberries that she grows on her strawberry farm are also rectangular. One day, her friend Anna comes to visit her farm, and together they picked out one of the sweetest rectangular strawberries that had ever been picked. They knew it was sweet because of its rich color and sweet-smelling strawberry goodness. Naturally, both wanting to experience equally the delight of indulging in one of the sweetest strawberries on the entire farm, they immediately began devising a plan to cut the strawberry exactly in half. The only tools they had at their disposal was a collection of sharp straight-edges, which could be used solely to mark points (arbitrarily, or as intersections of drawn lines), draw straight lines (going through any two marked points), and cut (along a drawn line). But, they weren't sure how to go about splitting the strawberry fairly.\V
+
+Prove that it \textit{is} possible for Anna and Banana to equally share their rectangular strawberry, by using only the tools and operations described above to devise a process which ultimately allows them to make a singular cut along one of the strawberry's two midlines (they refuse to cut the strawberry in half via any other means, because all other singular cuts along the strawberry destroy its rectangular integrity). Assume that anything not explicitly mentioned is not accessible to Anna or Banana; for example, the dimensions of the strawberry are not known. Also, assume that the strawberry is two-dimensional, and that they are only allowed to make one cut, so that no other method of sharing the strawberry other than the one described is acceptable.
+\end{potw}
+\newpage
+
+We present two solutions, the first of which utilizes more "standard" construction techniques, while the second is shorter but harder to find without knowledge of projective geometry. \V
+
+\begin{solution}
+
+\textbf{Solution 1} (by David Altizio)\textbf{:}\V
+
+Let $ABCD$ be our rectangle. Draw diagonals $AC$ and $BD$ and mark their intersection as $O$, which is the center of our rectangle. The rest of the solution follows in three steps: 
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.25cm}
+
+\textbf{Step \#1: Construct inner parallelogram}
+\begin{center}
+\begin{asy}
+import graph; import math; size(7cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+pair A = (0,0);
+pair B = (10,0);
+pair C = (10,6);
+pair D = (0,6);
+
+draw(A--B--C--D--cycle, linewidth(1) + black); 
+draw(A--C, linewidth(0.7) + black);
+draw(D--B, linewidth(0.7) + black);
+pair O = intersectionpoint(A--C, B--D);
+
+pair T = O*3/7;
+pair X = 2*T-D;
+pair P = intersectionpoint(D--X, A--B);
+X = 2*T-B;
+pair Q = intersectionpoint(B--X, A--D);
+
+draw(D--P, linewidth(0.7) + red + dotted); 
+draw(B--Q, linewidth(0.7) + red + dotted); 
+draw(P--Q, linewidth(0.5) + red);
+
+pair U = intersectionpoint(Q--C, D--B);
+X = 2*U;
+pair R = intersectionpoint(A--X, C--D);
+
+draw(A--R, linewidth(0.7) + blue + dotted); 
+draw(C--Q, linewidth(0.7) + blue + dotted); 
+draw(Q--R, linewidth(0.5) + blue);
+
+U = intersectionpoint(R--B, A--C);
+X = 2*U-D;
+pair S = intersectionpoint(D--X, C--B);
+
+draw(R--B, linewidth(0.7) + green + dotted); 
+draw(D--S, linewidth(0.7) + green + dotted); 
+draw(S--R, linewidth(0.5) + green);
+draw(P--S, linewidth(0.5) + black);
+
+dot(A,dotstyle); 
+label("$A$", A, SW * labelscalefactor); 
+dot(B,dotstyle); 
+label("$B$", B, SE * labelscalefactor); 
+dot(C,dotstyle); 
+label("$C$", C, NE * labelscalefactor); 
+dot(D,dotstyle); 
+label("$D$", D, NW * labelscalefactor); 
+dot(O, dotstyle);
+label("$O$", O + (0,-0.35));
+dot(T, dotstyle);
+label("$T$", T, NNE * 1.5); 
+dot(P, dotstyle);
+label("$P$", P + (0,-0.35)); 
+dot(Q, dotstyle);
+label("$Q$", Q, W * 1.5); 
+dot(R, dotstyle);
+label("$R$", R, N * 1.5); 
+dot(S, dotstyle);
+label("$S$", S, E * 1); 
+\end{asy}
+\end{center}
+
+\begin{itemize}[itemsep = -0.2em]
+    \item Mark an arbitrary point $T$ on segment $AO$.
+    \item Let $P$ (resp. $Q$) be the intersection of line $DT$ (resp. $BT$) and segment $AB$ (resp. $AD$). 
+    \item Let $R$ be the point on $DC$ such that $AR$ and $QC$ intersect on $DO$. Similarly, let $S$ be the point on $BC$ such that $BC$ such that $DS$ and $BR$ intersect on $CO$. 
+\end{itemize}
+
+Now, note that $PQRS$ is a parallelogram; in particular, $RS\parallel PQ\parallel BD$ and $RQ\parallel SP\parallel CA$, and with diagonals $AC$ and $BD$ we have four "mini" parallelograms, one in each quarter of the rectangle.
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.25cm}
+
+\textbf{Step \#2: Midpoint of AP}
+
+\begin{center}
+\begin{asy}
+import graph; import math; size(7cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+pair A = (0,0);
+pair B = (10,0);
+pair C = (10,6);
+pair D = (0,6);
+
+draw(A--B--C--D--cycle, linewidth(1) + black); 
+draw(A--C, linewidth(0.7) + black);
+draw(D--B, linewidth(0.7) + black);
+pair O = intersectionpoint(A--C, B--D);
+
+pair T = O*3/7;
+pair X = 2*T-D;
+pair P = intersectionpoint(D--X, A--B);
+X = 2*T-B;
+pair Q = intersectionpoint(B--X, A--D);
+
+pair U = intersectionpoint(Q--C, D--B);
+X = 2*U;
+pair R = intersectionpoint(A--X, C--D);
+
+U = intersectionpoint(R--B, A--C);
+X = 2*U-D;
+pair S = intersectionpoint(D--X, C--B);
+
+pair I = intersectionpoint(R--S, A--C);
+pair J = intersectionpoint(P--S, D--B);
+pair K = intersectionpoint(Q--P, A--C);
+
+draw(P--Q, linewidth(0.5) + black);
+draw(Q--R, linewidth(0.5) + black);
+draw(S--R, linewidth(0.5) + black);
+draw(P--S, linewidth(0.5) + black);
+
+pair midPointOne = intersectionpoint(O--S, I--J);
+pair midPointTwo = intersectionpoint(O--P, J--K);
+
+draw(O--S, linewidth(0.4) + gray + dotted);
+draw(O--P, linewidth(0.4) + gray + dotted);
+draw(I--J, linewidth(0.4) + gray + dotted);
+draw(J--K, linewidth(0.4) + gray + dotted);
+
+X = 3*midPointTwo - 2*midPointOne;
+pair midPointThree = intersectionpoint(midPointOne -- X, A--B);
+
+draw(midPointOne--midPointThree, linewidth(0.5) + linetype("2 2"));
+
+dot(A,dotstyle); 
+label("$A$", A, SW * labelscalefactor); 
+dot(B,dotstyle); 
+label("$B$", B, SE * labelscalefactor); 
+dot(C,dotstyle); 
+label("$C$", C, NE * labelscalefactor); 
+dot(D,dotstyle); 
+label("$D$", D, NW * labelscalefactor); 
+dot(O, dotstyle);
+label("$O$", O + (0,-0.35));
+dot(P, dotstyle);
+label("$P$", P + (0,-0.35)); 
+dot(Q, dotstyle);
+label("$Q$", Q, W * 1.5); 
+dot(R, dotstyle);
+label("$R$", R, N * 1.5); 
+dot(S, dotstyle);
+label("$S$", S, E * 1); 
+dot(I, dotstyle);
+dot(J, dotstyle);
+dot(K, dotstyle);
+dot(midPointOne, 3+black);
+dot(midPointTwo, 3+black);
+dot(midPointThree, 3+black);
+\end{asy}
+\end{center}
+As depicted in the picture, draw in the diagonals and mark the centers of the two mini parallelograms which lie below $AC$. Mark the intersection of the line connecting these two centers, and segment $AB$; this intersection is the midpoint of $AP$.
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.25cm}
+
+\textbf{Step \#3: Finish}
+
+\begin{center}
+\begin{asy}
+import graph; import math; size(7cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+pair A = (0,0);
+pair B = (10,0);
+pair C = (10,6);
+pair D = (0,6);
+
+draw(A--B--C--D--cycle, linewidth(1) + black); 
+draw(A--C, linewidth(0.7) + black);
+draw(D--B, linewidth(0.7) + black);
+pair O = intersectionpoint(A--C, B--D);
+
+pair T = O*3/7;
+pair X = 2*T-D;
+pair P = intersectionpoint(D--X, A--B);
+X = 2*T-B;
+pair Q = intersectionpoint(B--X, A--D);
+
+pair U = intersectionpoint(Q--C, D--B);
+X = 2*U;
+pair R = intersectionpoint(A--X, C--D);
+
+U = intersectionpoint(R--B, A--C);
+X = 2*U-D;
+pair S = intersectionpoint(D--X, C--B);
+
+pair I = intersectionpoint(R--S, A--C);
+pair J = intersectionpoint(P--S, D--B);
+pair K = intersectionpoint(Q--P, A--C);
+
+draw(P--Q, linewidth(0.5) + black);
+draw(Q--R, linewidth(0.5) + black);
+draw(S--R, linewidth(0.5) + black);
+draw(P--S, linewidth(0.5) + black);
+
+pair midPointOne = intersectionpoint(O--S, I--J);
+pair midPointTwo = intersectionpoint(O--P, J--K);
+
+draw(O--P, linewidth(0.5) + black);
+
+X = 3*midPointTwo - 2*midPointOne;
+pair midPointThree = intersectionpoint(midPointOne -- X, A--B);
+
+pair midPointFour = midpoint(A--O);
+
+draw(A--midPointTwo, linewidth(0.5) + dotted);
+draw(O--midPointThree, linewidth(0.5) + dotted);
+draw(P--midPointFour, linewidth(0.5) + dotted);
+
+X = 11*midPointTwo - 10*midPointFour;
+pair midPointFive = intersectionpoint(midPointFour--X, D--B);
+
+draw(midPointFive--midPointFour, linewidth(0.7) + orange + linetype("2 2"));
+draw(A--midPointFive, linewidth(0.5) + orange + dotted);
+draw(B--midPointFour, linewidth(0.5) + orange + dotted);
+
+pair midPointAB = midpoint(A--B);
+pair midPointCD = midpoint(C--D);
+
+draw(midPointAB--midPointCD, linewidth(0.7) + RGB(231, 84, 128) + linetype("5 2"));
+
+
+
+dot(A,dotstyle); 
+label("$A$", A, SW * labelscalefactor); 
+dot(B,dotstyle); 
+label("$B$", B, SE * labelscalefactor); 
+dot(C,dotstyle); 
+label("$C$", C, NE * labelscalefactor); 
+dot(D,dotstyle); 
+label("$D$", D, NW * labelscalefactor); 
+dot(O, dotstyle);
+label("$O$", O, dir(60)*2.3);
+dot(P, dotstyle);
+label("$P$", P + (0,-0.35)); 
+dot(Q, dotstyle);
+label("$Q$", Q, W * 1.5); 
+dot(R, dotstyle);
+label("$R$", R, N * 1.5); 
+dot(S, dotstyle);
+label("$S$", S, E * 1);  
+dot(midPointTwo, 3+black);
+dot(midPointThree, 3+black);
+dot(midPointFour, 3+black);
+dot(midPointFive, 3+black);
+dot(midPointAB, dotstyle);
+dot(midPointCD, dotstyle);
+\end{asy}
+\end{center}
+
+\begin{itemize}[itemsep = -0.2em]
+    \item We have constructed the midpoint of $AP$, and furthermore we have also constructed the midpoint of $PO$, because it corresponds with one of the two centers of the mini parallelograms we constructed in step 2. Therefore, use these two midpoints to construct the centroid of $\triangle{APO}$.
+    \item Use the centroid of $\triangle{APO}$ to construct the midpoint of $AO$.
+    \item Connect the midpoints $AO$ and $PO$ and draw in the midline of $\triangle{AOB}$.
+    \item Connect $A$ with the midpoint of $BO$, and $B$ with the midpoint of $AO$. Then, the line connecting the intersection of these two segments, and $O$, forms the vertical midline of our original rectangle, so we are finished.
+\end{itemize}
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.25cm}
+
+Now that we've constructed a process for which we can cut $ABCD$ in half, Anna and Banana are free to equally share their rectangular strawberry. it was very delicious! gosh they love strawberries 
+\catheart\catheart\catheart\lick\lick\lick
+
+\end{solution}
+
+\newpage
+
+\begin{solution}
+\textbf{Solution 2} (official solution, motivated by projective)\textbf{:}
+
+\begin{center}
+\begin{asy}
+import graph; import math; size(9cm); 
+real labelscalefactor = 1.2; 
+pen dps = linewidth(0.7) + fontsize(10); defaultpen(dps); 
+pen dotstyle = black; 
+real xmin = -2, xmax = 12, ymin = -2, ymax = 8;  
+pen wwwwww = rgb(0.4,0.4,0.4); 
+
+pair A = (0,0);
+pair B = (10,0);
+pair C = (10,6);
+pair D = (0,6);
+
+draw(A--B--C--D--cycle, linewidth(1) + black); 
+draw(A--C, linewidth(0.7) + black);
+draw(D--B, linewidth(0.7) + black);
+pair E = intersectionpoint(A--C, B--D);
+
+pair X = 0.68*D + 0.32B;
+pair temp = X*2;
+pair Y = intersectionpoint(A--temp, D--C);
+pair T = intersectionpoint(E--Y, C--X);
+pair Z = intersectionpoint(D--midpoint(C--B), A--C);
+pair M = midpoint(B--C);
+
+draw(A--Y, linewidth(0.7) + black + dotted);
+draw(C--X, linewidth(0.7) + black + dotted);
+draw(E--Y, linewidth(0.7) + black + dotted);
+draw(D--M, linewidth(0.7) + black + linetype("5 2"));
+draw(M--midpoint(A--D), linewidth(0.7) + RGB(231, 84, 128) + linetype("5 2"));
+
+dot(A,dotstyle); 
+label("$A$", A, SW * labelscalefactor); 
+dot(B,dotstyle); 
+label("$B$", B, SE * labelscalefactor); 
+dot(C,dotstyle); 
+label("$C$", C, NE * labelscalefactor); 
+dot(D,dotstyle); 
+label("$D$", D, NW * labelscalefactor); 
+dot(E, dotstyle);
+label("$E$", E, S*2);
+dot(X, dotstyle);
+label("$X$", X, dir(200)*2); 
+dot(Y, dotstyle);
+label("$Y$", Y, N*2); 
+dot(Z, dotstyle);
+label("$Z$", Z, S*2); 
+dot(T, dotstyle);
+label("$T$", T, dir(50)*2); 
+dot(M, dotstyle);
+label("$M$", M, dir(0)*2);
+dot(midpoint(A--D), dotstyle);
+\end{asy}
+\end{center}
+Label our rectangle as $ABCD$, and by drawing in diagonals $AC$ and $BD$ construct the center of our rectangle $E$. Now pick an arbitrary point $X$ on segment $DE$, and let $Y$ be the intersection of line $AX$ and segment $CD$. Also, let $T$ be the intersection of $EY$ and $CX$. Then, the main claim is as follows: \V
+
+\begin{claim}
+\textbf{Main Claim:} Let $M = DT\cap BC$. Then, $M$ is the midpoint of $BC$.
+\end{claim}\vspace{.25cm}
+
+First note that if $M$ is the midpoint of $BC$, then we can draw line $EM$ which is the horizontal midline of $ABCD$. Therefore, our proof of this claim suffices to prove the rest of the problem.\V
+
+The easiest way to prove this claim is with projective geometry. But, for the sake of completeness, we will also include a cartesian-coordinate bash as a second proof (which implies that this construction is technically still discoverable via "standard" methods, but without knowledge of projective stumbling on this configuration would probably be quite difficult).
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.1cm}
+
+\textit{First proof of Main Claim, using projective geometry:}\V
+
+Let $N = DT\cap XY$. Then, we have that 
+\[(AZ;EC) \overset{D}{=} (AN; XY) \overset{T}{=} (AZ; CE),\]
+implying that $(AZ;EC)$ is a harmonic bundle (this result is also well known as the ceva/menelaus configuration on $\triangle{DEC}$). Then, if we let $P_{\infty} = DA\cap CB$, it follows from projecting through $D$ that 
+\[-1 = (AZ;EC) \overset{D}{=} (P_{\infty}M; BC),\]
+and thus $M$ is the midpoint of $BC$, as desired.
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt} \vspace{0.25cm}
+\newpage 
+
+\textit{Second proof of Main Claim, using coordinates:}\V
+
+First note that the result is immune to stretching or shrinking of the figure; therefore, without loss of generality assume that $ABCD$ is a square of side length $2$.\V
+
+Place the figure on the coordinate plane so that $A = (0,0)$, $B = (2,0)$, $C = (2,2)$, $D = (0,2)$, $E = (1,1)$, and $X = (f, 2-f)$ for some $0 < f < 1$. Under this system of coordinates, it easily follows that $Y = (\frac{2f}{2-f},2)$. \V
+
+We aim to show that the intersection between the lines $\overleftrightarrow{XC}$ and $\overleftrightarrow{YE}$ lies on the line connecting $D$ and the midpoint of $BC$ (call $M_{BC}$), which is clearly equivalent to our desired result. We can easily calculate the point-slope equations of all three lines: 
+\begin{align*}
+    \overleftrightarrow{DM_{BC}} &:= \quad\qquad y = -\frac{1}{2}x+2 \tag{1}\\
+    \overleftrightarrow{XC} &:= \enspace(y-2) = \left(\frac{f}{2-f}\right)(x-2) \tag{2}\\
+    \overleftrightarrow{YE} &:= \enspace(y-1) = \left(\frac{2-f}{3f-2}\right)(x-1) \tag{3}
+\end{align*}
+
+Plugging in equation $(1)$ into equations $(2)$ and $(3)$, it remains to show that 
+\[\frac{-x/2}{x-2} = \frac{f}{2-f} \Longleftrightarrow \frac{-x/2+1}{x-1} = \frac{2-f}{3f-2}.\]
+But this clearly holds (for example, by taking the former equation, multiplying both sides by $2$, and then subtracting $1$ from both sides), so we are done!!
+
+\vspace{0.3cm} \rule{\textwidth}{0.3pt}
+\end{solution}
+
+% label("$T$", T, NW * labelscalefactor);
+
+% clip((xmin,ymin)--(xmin,ymax)--(xmax,ymax)--(xmax,ymin)--cycle); 
+
+
+
+\end{document}
